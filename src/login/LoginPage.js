@@ -62,6 +62,12 @@ class LoginPage extends Component {
                         type="submit" 
                         className="btn btn-primary"
                     >Login</button>
+                    <a
+                            className="btn btn-primary"
+                            href="/#"
+                            role="button">
+                        Login with facebook
+                        </a>
                 </form>
 
             </div>
