@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import callApi from "./../utils/apiCaller";
+import i18next from 'i18next';
+import { withTranslation } from 'react-i18next';
 
 class LoginPage extends Component {
 
@@ -31,6 +33,11 @@ class LoginPage extends Component {
         }).then(res=> {
             console.log(res);
         });
+    }
+
+    //handle changeLanguage
+    handleClick(lang) {
+        i18next.changeLanguage(lang)
     }
 
     render() {
