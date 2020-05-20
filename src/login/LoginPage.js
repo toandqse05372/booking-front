@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import callApi from "./../utils/apiCaller";
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
+import Facebook from '../components/Facebook';
 
 class LoginPage extends Component {
 
@@ -93,12 +94,13 @@ class LoginPage extends Component {
                             role="button">
                         Login with facebook */}
                         {/* </a> */}
-                        <Link
+                        {/* <Link
                             className="btn btn-primary"
                             to="/login/fb"
                             role="button">
-                        Login with facebook
-                        </Link>
+                        Login  facebook
+                        </Link> */}
+                        <Facebook />
                     </form>
                 </div>
             </div >
