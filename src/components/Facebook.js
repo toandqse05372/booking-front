@@ -27,6 +27,12 @@ export default class Facebook extends Component {
       token: response.accessToken
     });
 
+   
+
+  };
+
+  componentClicked = () => {
+    console.log("clicked");
     var { name, email, accessToken } = this.state;
     //POST name & password to server
     callApi('login/fb', 'POST', {
@@ -36,11 +42,7 @@ export default class Facebook extends Component {
     }).then(res => {
         console.log(res);
     });
-
-  };
-
-  componentClicked = () => console.log("clicked");
-
+  }
   render() {
     let fbContent;
 
