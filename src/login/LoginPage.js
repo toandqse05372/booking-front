@@ -73,7 +73,7 @@ class LoginPage extends Component {
                             className="btn btn-primary"
                             href="/#"
                             role="button">
-                        Login with facebook
+                        Login with bé Xuân Mike Loz to
                         </a>
                 </form>
 
