@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import callApi from "./../utils/apiCaller";
 
@@ -9,26 +9,30 @@ export default class Facebook extends Component {
     userID: "",
     name: "",
     email: "",
-    picture: ""
+    picture: "",
+    token:""
   };
 
   responseFacebook = response => {
     console.log(response);
+
+
 
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
       name: response.name,
       email: response.email,
-      picture: response.picture.data.url
-      
+      picture: response.picture.data.url,
+      token: response.accessToken
     });
 
-    var { name, email } = this.state;
+    var { name, email, accessToken } = this.state;
     //POST name & password to server
     callApi('login/fb', 'POST', {
         name: name,
         email: email,
+        accessToken: accessToken
     }).then(res => {
         console.log(res);
     });
