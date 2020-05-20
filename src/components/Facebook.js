@@ -15,9 +15,6 @@ export default class Facebook extends Component {
 
   responseFacebook = response => {
     console.log(response);
-
-
-
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -26,23 +23,18 @@ export default class Facebook extends Component {
       picture: response.picture.data.url,
       token: response.accessToken
     });
-
-   
-
-  };
-
-  componentClicked = () => {
-    console.log("clicked");
-    var { name, email, accessToken } = this.state;
     //POST name & password to server
     callApi('login/fb', 'POST', {
-        name: name,
-        email: email,
-        accessToken: accessToken
+        name: response.name,
+        email: response.email,
+        accessToken: response.accessToken
     }).then(res => {
         console.log(res);
     });
-  }
+  };
+
+  // componentClicked = () => console.log("clicked");
+
   render() {
     let fbContent;
 
@@ -69,7 +61,7 @@ export default class Facebook extends Component {
           appId="2656493264626570"
           autoLoad={true}
           fields="name,email,picture"
-          onClick={this.componentClicked}
+          // onClick={this.componentClicked}
           callback={this.responseFacebook}
         />
       );
