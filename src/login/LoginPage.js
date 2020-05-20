@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import callApi from "./../utils/apiCaller";
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
+import {Link} from 'react-router-dom';
 
 class LoginPage extends Component {
 
@@ -86,12 +87,18 @@ class LoginPage extends Component {
                             className="btn btn-primary">
                         Login
                         </button>
-                        <a
+                        {/* <a
                             className="btn btn-primary"
                             href="/#"
                             role="button">
+                        Login with facebook */}
+                        {/* </a> */}
+                        <Link
+                            className="btn btn-primary"
+                            to="/login/fb"
+                            role="button">
                         Login with facebook
-                        </a>
+                        </Link>
                     </form>
                 </div>
             </div >

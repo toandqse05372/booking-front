@@ -7,6 +7,10 @@ const routers = [
         exact: false,
         main: () => <LoginPage />
     },
+    {
+        path :'/login/fb',
+        exact: false,
+        main: () => <LoginPage />
+    }
 ];
-
 export default routers;
