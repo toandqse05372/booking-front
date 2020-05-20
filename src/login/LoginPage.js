@@ -14,7 +14,7 @@ class LoginPage extends Component {
     }
 
 
-    onChange =(e)=> {
+    onChange = (e) => {
         var target = e.target;
         var name = target.name;
         var value = target.value;
@@ -24,13 +24,14 @@ class LoginPage extends Component {
     }
 
 
-    onSave = (e)=> {
+    onSave = (e) => {
         e.preventDefault();
-        var {txtName, txtPassword} = this.state;
-            callApi('login', 'POST', {
-                username : txtName,
-                password : txtPassword,
-        }).then(res=> {
+        var { txtName, txtPassword } = this.state;
+        //POST name & password to server
+        callApi('login', 'POST', {
+            name: txtName,
+            password: txtPassword,
+        }).then(res => {
             console.log(res);
         });
     }
@@ -41,45 +42,62 @@ class LoginPage extends Component {
     }
 
     render() {
-        var {txtName, txtPassword} = this.state;
+        const { t } = this.props;
+        var { txtName, txtPassword } = this.state;
         return (
-            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                <form onSubmit = {this.onSave} >
-                    <div className="form-group">
-                        <label >UerName </label>
-                        <input 
-                            type="text" 
-                            className="form-control" 
-                            name="txtName" 
-                            value={txtName}
-                            onChange = {this.onChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label >Password: </label>
-                        <input 
-                        type="password" 
-                        className="form-control"
-                        name="txtPassword" 
-                        value={txtPassword}
-                        onChange = {this.onChange}
-                        />
-                    </div>
-                    <button 
-                        type="submit" 
-                        className="btn btn-primary"
-                    >Login</button>
-                    <a
+            <div >
+                <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
+                    <button onClick={() => this.handleClick('en')} >
+                        English
+                    </button>
+                    <button onClick={() => this.handleClick('jap')} >
+                        日本語
+                    </button>
+                    <button onClick={() => this.handleClick('vi')} >
+                        Vietnamese
+                    </button>
+                </nav>
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                    <form onSubmit={this.onSave} >
+                        <div className="form-group">
+                            <label >{t('UserName.1')} </label>
+                            <input
+
+                                type="text"
+                                className="form-control"
+                                name="txtName"
+                                value={txtName}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label >{t('Password.1')} </label>
+                            <input
+
+                                type="password"
+                                className="form-control"
+                                name="txtPassword"
+                                value={txtPassword}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="btn btn-primary">
+                        Login
+                        </button>
+                        <a
                             className="btn btn-primary"
                             href="/#"
                             role="button">
-                        Login with bé Xuân Mike Loz to
+                        Login with facebook
                         </a>
-                </form>
-
-            </div>
+                    </form>
+                </div>
+            </div >
         );
     }
+
 }
 
-export default LoginPage;
+export default withTranslation()(LoginPage);
