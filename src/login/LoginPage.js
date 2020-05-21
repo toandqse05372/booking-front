@@ -34,14 +34,17 @@ class LoginPage extends Component {
         // });
         var { txtName, txtPassword } = this.state;
         callApi('login', 'POST', {
-            name: txtName,
+            username: txtName,
             password: txtPassword,
-        }).then(response => {
-            console.log("My response is: " + response);
+        }).then(res => {
+            console.log(res);
         }).catch(function (error) {
-            console.log(error);
-        });
-
+            if (error.response) {
+              // Request made and server responded
+              console.log(error.response);
+            }
+        
+          });
     }
 
     handleClick(lang) {
