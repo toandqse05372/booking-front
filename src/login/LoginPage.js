@@ -28,10 +28,6 @@ class LoginPage extends Component {
     //sent name & password to server
     onSave = (e) => {
         e.preventDefault();
-        // callApi('products','GET', null)
-        // .then(res=>{
-        //     console.log(res);
-        // });
         var { txtName, txtPassword } = this.state;
         callApi('login', 'POST', {
             username: txtName,
@@ -43,7 +39,6 @@ class LoginPage extends Component {
               // Request made and server responded
               console.log(error.response);
             }
-        
           });
     }
 
@@ -96,18 +91,6 @@ class LoginPage extends Component {
                             className="btn btn-primary">
                             Login
                         </button>
-                        {/* <a
-                            className="btn btn-primary"
-                            href="/#"
-                            role="button">
-                        Login with facebook */}
-                        {/* </a> */}
-                        {/* <Link
-                            className="btn btn-primary"
-                            to="/login/fb"
-                            role="button">
-                        Login  facebook
-                        </Link> */}
                         <Facebook />
                     </form>
                 </div>
