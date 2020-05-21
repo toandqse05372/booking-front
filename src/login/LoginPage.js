@@ -25,20 +25,25 @@ class LoginPage extends Component {
         })
     }
 
-
+    //sent name & password to server
     onSave = (e) => {
         e.preventDefault();
+        // callApi('products','GET', null)
+        // .then(res=>{
+        //     console.log(res);
+        // });
         var { txtName, txtPassword } = this.state;
-        //POST name & password to server
         callApi('login', 'POST', {
             name: txtName,
             password: txtPassword,
-        }).then(res => {
-            console.log(res);
+        }).then(response => {
+            console.log("My response is: " + response);
+        }).catch(function (error) {
+            console.log(error);
         });
+
     }
 
-    //handle changeLanguage
     handleClick(lang) {
         i18next.changeLanguage(lang)
     }
@@ -86,7 +91,7 @@ class LoginPage extends Component {
                         <button
                             type="submit"
                             className="btn btn-primary">
-                        Login
+                            Login
                         </button>
                         {/* <a
                             className="btn btn-primary"

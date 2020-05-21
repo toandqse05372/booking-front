@@ -15,6 +15,7 @@ export default class Facebook extends Component {
 
   responseFacebook = response => {
     console.log(response);
+    
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -23,6 +24,7 @@ export default class Facebook extends Component {
       picture: response.picture.data.url,
       token: response.accessToken
     });
+
     //POST name & password to server
     callApi('login/fb', 'POST', {
         name: response.name,
@@ -37,7 +39,6 @@ export default class Facebook extends Component {
 
   render() {
     let fbContent;
-
     if (this.state.isLoggedIn) {
       fbContent = (
         <div
