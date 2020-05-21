@@ -31,11 +31,17 @@ class LoginPage extends Component {
         var { txtName, txtPassword } = this.state;
         //POST name & password to server
         callApi('login', 'POST', {
-            name: txtName,
+            username: txtName,
             password: txtPassword,
         }).then(res => {
             console.log(res);
-        });
+        }).catch(function (error) {
+            if (error.response) {
+              // Request made and server responded
+              console.log(error.response);
+            }
+        
+          });
     }
 
     //handle changeLanguage
