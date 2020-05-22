@@ -9,7 +9,5 @@ export default async function callApi(endpoint, method = 'GET', body) {
         method: method,
         url: `${Config.API_URL}/${endpoint}`,
         data: body
-    }).catch(err => {
-        console.log(err);
-    });
+    })
 };
