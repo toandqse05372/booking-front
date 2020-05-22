@@ -1,8 +1,23 @@
 {
     "UserName": {
-        "1": "User full Name"
+        "1": "Username"
     },
     "Password": {
-        "1": "Password which u care"
+        "1": "Password"
+    },
+    "UserNameRegister": {
+        "1": "Register Password"
+    },
+    "PasswordRegister": {
+        "1": "Register Password "
+    },
+    "EmailRegister": {
+        "1": "Register Email"
+    },
+    "Login": {
+        "1": "Login"
+    },
+    "Register": {
+        "1": "Register"
     }
 }

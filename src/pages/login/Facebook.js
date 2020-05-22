@@ -10,12 +10,11 @@ export default class Facebook extends Component {
     name: "",
     email: "",
     picture: "",
-    token:""
+    token: ""
   };
 
+
   responseFacebook = response => {
-    console.log(response);
-    
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -27,11 +26,11 @@ export default class Facebook extends Component {
 
     //POST name & password to server
     callApi('login/fb', 'POST', {
-        name: response.name,
-        email: response.email,
-        accessToken: response.accessToken
+      name: response.name,
+      email: response.email,
+      accessToken: response.accessToken
     }).then(res => {
-        console.log(res);
+      console.log(res);
     });
   };
 
@@ -52,19 +51,32 @@ export default class Facebook extends Component {
           <img src={this.state.picture} alt={this.state.name} />
           <h2>Welcome {this.state.name}</h2>
           Email: {this.state.email}
-          Token: {this.state.token}
         </div>
 
       );
     } else {
       fbContent = (
+        // <button
+        //   type="submit"
+        //   className="btn btn-primary"
+        //   appId="2656493264626570"
+        //   autoLoad={false}
+        //   fields="name,email,picture"
+        //   // onClick={this.componentClicked}
+        //   callback={this.responseFacebook}
+        // >
+        //   FacebookLogin
+        // </button>
+
         <FacebookLogin
           appId="2656493264626570"
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
           // onClick={this.componentClicked}
           callback={this.responseFacebook}
+          cssClass="btn btn-primary"
         />
+
       );
     }
 

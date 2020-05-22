@@ -12,6 +12,9 @@ class LoginPage extends Component {
         this.state = {
             txtName: '',
             txtPassword: '',
+            txtNameRegister: '',
+            txtPasswordRegister: '',
+            // txtMailRegister: ''
         }
     }
 
@@ -25,24 +28,51 @@ class LoginPage extends Component {
         })
     }
 
+
     //sent name & password to server
-    onSave = (e) => {
+    onClickLogin = (e) => {
         e.preventDefault();
         var { txtName, txtPassword } = this.state;
-        var {history} = this.props;
+        var { history } = this.props;
         callApi('login', 'POST', {
             username: txtName,
             password: txtPassword,
         }).then(res => {
             console.log(res);
+            history.push("/");
+        }).catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                console.log(error.response.data);
+                if (error.response.data) {
+                    alert("The username or password is incorrect");
+                }
+                //   history.push("/");
+
+            }
+        });
+    }
+
+    onClickRegister = (e) => {
+        e.preventDefault();
+        var { txtNameRegister, txtPasswordRegister } = this.state;
+        // var { history } = this.props;
+        callApi('register', 'POST', {
+            username: txtNameRegister,
+            password: txtPasswordRegister,
+        }).then(res => {
+            console.log(res);
             // history.push("/");
         }).catch(function (error) {
             if (error.response) {
-              // Request made and server responded
-              console.log(error.response);
-              history.push("/");
+                // Request made and server responded
+                console.log(error.response);
+                // if (error.response.data) {
+                //     alert("The username or password is incorrect");
+                // }
+                //   history.push("/");
             }
-          });
+        });
     }
 
     handleClick(lang) {
@@ -51,7 +81,8 @@ class LoginPage extends Component {
 
     render() {
         const { t } = this.props;
-        var { txtName, txtPassword } = this.state;
+        var { txtName, txtPassword,
+            txtNameRegister, txtPasswordRegister } = this.state;
         return (
             <div >
                 <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
@@ -65,8 +96,9 @@ class LoginPage extends Component {
                         Vietnamese
                     </button>
                 </nav>
+                {/* login form */}
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                    <form onSubmit={this.onSave} >
+                    <form onSubmit={this.onClickLogin} >
                         <div className="form-group">
                             <label >{t('UserName.1')} </label>
                             <input
@@ -81,7 +113,6 @@ class LoginPage extends Component {
                         <div className="form-group">
                             <label >{t('Password.1')} </label>
                             <input
-
                                 type="password"
                                 className="form-control"
                                 name="txtPassword"
@@ -92,9 +123,55 @@ class LoginPage extends Component {
                         <button
                             type="submit"
                             className="btn btn-primary">
-                            Login
+                            {t('Login.1')}
                         </button>
+                        
                         <Facebook />
+                    </form>
+                </div>
+
+                
+                {/* register form */}
+                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                    <form onSubmit={this.onClickRegister} >
+                        <div className="form-group">
+                            <label >{t('UserNameRegister.1')} </label>
+                            <input
+
+                                type="text"
+                                className="form-control"
+                                name="txtNameRegister"
+                                value={txtNameRegister}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label >{t('PasswordRegister.1')} </label>
+                            <input
+
+                                type="password"
+                                className="form-control"
+                                name="txtPasswordRegister"
+                                value={txtPasswordRegister}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        {/* <div className="form-group">
+                            <label >{t('EmailRegister.1')} </label>
+                            <input
+
+                                type="password"
+                                className="form-control"
+                                name="txtMailRegister"
+                                value={txtMailRegister}
+                                onChange={this.onChange}
+                            />
+                        </div> */}
+                        <button
+                            type="submit"
+                            className="btn btn-primary">
+                            {t('Register.1')}
+                        </button>
                     </form>
                 </div>
             </div >
