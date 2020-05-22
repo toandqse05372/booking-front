@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import callApi from "./../utils/apiCaller";
+import callApi from "../../utils/apiCaller";
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 // import {Link} from 'react-router-dom';
-import Facebook from '../components/Facebook';
+import Facebook from './Facebook';
 
 class LoginPage extends Component {
 
@@ -29,15 +29,18 @@ class LoginPage extends Component {
     onSave = (e) => {
         e.preventDefault();
         var { txtName, txtPassword } = this.state;
+        var {history} = this.props;
         callApi('login', 'POST', {
             username: txtName,
             password: txtPassword,
         }).then(res => {
             console.log(res);
+            // history.push("/");
         }).catch(function (error) {
             if (error.response) {
               // Request made and server responded
               console.log(error.response);
+              history.push("/");
             }
           });
     }

@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
-import callApi from "./../utils/apiCaller";
+import callApi from "../../utils/apiCaller";
 
 
 export default class Facebook extends Component {

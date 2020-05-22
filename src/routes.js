@@ -1,16 +1,17 @@
 import React from 'react';
-import LoginPage from './login/LoginPage';
+import LoginPage from './pages/login/LoginPage';
+import HomePage from './pages/HomePage/HomePage';
 
 const routers = [
     {
         path :'/login',
         exact: false,
-        main: () => <LoginPage />
+        main: ({history}) => <LoginPage history={history}/>
+    },
+    {
+        path: '/',
+        exact: true,
+        main: () => <HomePage />  //component tuong ung
     }
-    // {
-    //     path :'/login/fb',
-    //     exact: false,
-    //     main: () => <LoginPage />
-    // }
 ];
 export default routers;

@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import routes from './routes';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import Menu from './components/Menu/Menu';
 class App extends Component {
     render() {
         return (
             <Router>
+                <Menu />
                 <div>
                     <div className="container">
                         <div className="row">
-                            
                             {this.showContentMenus(routes)}
                         </div>
                     </div>
