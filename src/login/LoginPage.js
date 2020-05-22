@@ -25,11 +25,10 @@ class LoginPage extends Component {
         })
     }
 
-
+    //sent name & password to server
     onSave = (e) => {
         e.preventDefault();
         var { txtName, txtPassword } = this.state;
-        //POST name & password to server
         callApi('login', 'POST', {
             username: txtName,
             password: txtPassword,
@@ -40,11 +39,9 @@ class LoginPage extends Component {
               // Request made and server responded
               console.log(error.response);
             }
-        
           });
     }
 
-    //handle changeLanguage
     handleClick(lang) {
         i18next.changeLanguage(lang)
     }
@@ -92,20 +89,8 @@ class LoginPage extends Component {
                         <button
                             type="submit"
                             className="btn btn-primary">
-                        Login
+                            Login
                         </button>
-                        {/* <a
-                            className="btn btn-primary"
-                            href="/#"
-                            role="button">
-                        Login with facebook */}
-                        {/* </a> */}
-                        {/* <Link
-                            className="btn btn-primary"
-                            to="/login/fb"
-                            role="button">
-                        Login  facebook
-                        </Link> */}
                         <Facebook />
                     </form>
                 </div>

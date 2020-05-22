@@ -6,11 +6,11 @@ const routers = [
         path :'/login',
         exact: false,
         main: () => <LoginPage />
-    },
-    {
-        path :'/login/fb',
-        exact: false,
-        main: () => <LoginPage />
     }
+    // {
+    //     path :'/login/fb',
+    //     exact: false,
+    //     main: () => <LoginPage />
+    // }
 ];
 export default routers;
