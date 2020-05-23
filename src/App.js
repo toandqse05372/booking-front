@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import routes from './routes';
+import routes from './Config/routes';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
 class App extends Component {

@@ -1,7 +1,7 @@
 import React from 'react';
-import LoginPage from './pages/login/LoginPage';
-import HomePage from './pages/HomePage/HomePage';
-import Register from './pages/login/Register';
+import LoginPage from './../pages/login/LoginPage';
+import HomePage from './../pages/HomePage/HomePage';
+import Register from './../pages/login/Register';
 
 const routers = [
     {
