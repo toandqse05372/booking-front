@@ -3,7 +3,7 @@ import callApi from "../../utils/apiCaller";
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 // import {Link} from 'react-router-dom';
-import Facebook from './Facebook';
+// import Facebook from './Facebook';
 
 class LoginPage extends Component {
 
@@ -14,7 +14,7 @@ class LoginPage extends Component {
             txtPassword: '',
             txtNameRegister: '',
             txtPasswordRegister: '',
-            // txtMailRegister: ''
+            txtMailRegister: ''
         }
     }
 
@@ -28,38 +28,14 @@ class LoginPage extends Component {
         })
     }
 
-
-    //sent name & password to server
-    onClickLogin = (e) => {
-        e.preventDefault();
-        var { txtName, txtPassword } = this.state;
-        var { history } = this.props;
-        callApi('login', 'POST', {
-            username: txtName,
-            password: txtPassword,
-        }).then(res => {
-            console.log(res);
-            history.push("/");
-        }).catch(function (error) {
-            if (error.response) {
-                // Request made and server responded
-                console.log(error.response.data);
-                if (error.response.data) {
-                    alert("The username or password is incorrect");
-                }
-                //   history.push("/");
-
-            }
-        });
-    }
-
     onClickRegister = (e) => {
         e.preventDefault();
-        var { txtNameRegister, txtPasswordRegister } = this.state;
+        var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
         // var { history } = this.props;
         callApi('register', 'POST', {
             username: txtNameRegister,
             password: txtPasswordRegister,
+            email: txtMailRegister,
         }).then(res => {
             console.log(res);
             // history.push("/");
@@ -81,7 +57,7 @@ class LoginPage extends Component {
 
     render() {
         const { t } = this.props;
-        var { txtName, txtPassword } = this.state;
+        var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
         return (
             <div >
                 <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
@@ -95,42 +71,8 @@ class LoginPage extends Component {
                         Vietnamese
                     </button>
                 </nav>
-                {/* login form */}
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                    <form onSubmit={this.onClickLogin} >
-                        <div className="form-group">
-                            <label >{t('UserName.1')} </label>
-                            <input
-
-                                type="text"
-                                className="form-control"
-                                name="txtName"
-                                value={txtName}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label >{t('Password.1')} </label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="txtPassword"
-                                value={txtPassword}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-primary">
-                            {t('Login.1')}
-                        </button>
-                        
-                        <Facebook />
-                    </form>
-                </div>
-
-                
-                {/* register form
+    
+                {/* register form */}
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                     <form onSubmit={this.onClickRegister} >
                         <div className="form-group">
@@ -155,7 +97,7 @@ class LoginPage extends Component {
                                 onChange={this.onChange}
                             />
                         </div>
-                        {/* <div className="form-group">
+                        <div className="form-group">
                             <label >{t('EmailRegister.1')} </label>
                             <input
 
@@ -165,14 +107,14 @@ class LoginPage extends Component {
                                 value={txtMailRegister}
                                 onChange={this.onChange}
                             />
-                        </div> */}
-                        {/* <button
+                        </div>
+                        <button
                             type="submit"
                             className="btn btn-primary">
                             {t('Register.1')}
                         </button>
-                    </form> */}
-                {/* </div> } */}
+                    </form>
+                </div>
             </div >
         );
     }
