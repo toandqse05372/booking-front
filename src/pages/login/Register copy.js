@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import callApi from './../../utils/apiCaller';
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
-// import * as Regex from './../../constants/Regex';
+import * as Regex from './../../constants/Regex';
 import './testStyle.css';
 
 class LoginPage extends Component {
@@ -13,6 +13,12 @@ class LoginPage extends Component {
             txtNameRegister: '',
             txtPasswordRegister: '',
             txtMailRegister: '',
+            errors: {
+                errFullName: '',
+                errEmail: '',
+                errPassword: '',
+            },
+            hidden: true
         }
     }
 
@@ -21,10 +27,36 @@ class LoginPage extends Component {
         var target = e.target;
         var name = target.name;
         var value = target.value;
+        var {errors} = this.state;
         this.setState({
             [name]: value
         });
-
+        // chạy theo các trường hợp input
+        switch (name) {
+            case 'txtNameRegister':
+                //nếu thỏa mãn not Null set error rỗng, ngược lại set mesage 
+                errors.errFullName =
+                    (value.toString().trim().length)
+                        ? ''
+                        : 'Not Null';
+                break;
+            case 'txtMailRegister':
+                errors.errEmail =
+                //nếu thỏa mãn regex thì set error rỗng, ngược lại set message
+                    ( Regex.VALID_EMAIL.test(value)  )
+                        ? ''
+                        : 'Email is not valid!';
+                break;
+            case 'txtPasswordRegister':
+                errors.errPassword =
+                //nếu thỏa mãn regex thì set error rỗng, ngược lại set message
+                    Regex.VALID_PASSWORD.test(value)
+                        ? ''
+                        : 'At least 8 words | at least 1 number | !whiteSpace';
+                break;
+            default:
+                break;
+        }
     }
 
     onClickRegister = (e) => {
@@ -32,18 +64,19 @@ class LoginPage extends Component {
         var { txtNameRegister, 
             txtPasswordRegister, 
             txtMailRegister } = this.state;
-        // var { history } = this.props;
+        var { history } = this.props;
         callApi('register', 'POST', {
             username: txtNameRegister,
             password: txtPasswordRegister,
             email: txtMailRegister,
         }).then(res => {
             console.log(res);
-            // history.push("/");
-        }).catch(function (error) {
-            if (error.response) {
+            // alert("Register Success");
+            history.push("/login");
+        }).catch(function (myError) {
+            if (myError.response) {
                 // Request made and server responded
-                console.log(error.response);
+                console.log(myError.response);
                 // if (error.response.data) {
                 //     alert("The username or password is incorrect");
                 // }
@@ -56,12 +89,9 @@ class LoginPage extends Component {
         i18next.changeLanguage(lang)
     }
 
-
-
-
     render() {
         const { t } = this.props;
-
+        const { errors } = this.state;
 
         var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
         return (
@@ -90,6 +120,10 @@ class LoginPage extends Component {
                                 onChange={this.onChange}
                                 
                             />
+                            {errors.errFullName.length > 0 &&
+                                <span className='error'>
+                                    {errors.errFullName}
+                                </span>}
                         </div>
 
 
@@ -103,21 +137,25 @@ class LoginPage extends Component {
                                 value={txtPasswordRegister}
                                 onChange={this.onChange}
                             />
-                            
+                            <br></br>
+                            {errors.errPassword.length > 0 &&
+                                <span className='error'>{errors.errPassword}
+                                </span>}
                         </div>
 
 
                         <div className="form-group">
                             <label >{t('EmailRegister.1')} </label>
                             <input
-
                                 type="text"
                                 className="form-control"
                                 name="txtMailRegister"
                                 value={txtMailRegister}
                                 onChange={this.onChange}
                             />
-                        
+                            {errors.errEmail.length > 0 &&
+                                <span className='error'>{errors.errEmail}
+                                </span>}
                         </div>
                         <button
                             type="submit"

@@ -16,6 +16,11 @@ const menus = [
         name: 'Register',
         to: '/register',
         exact: false
+    },
+    {
+        name: 'Register with validation',
+        to: '/register2',
+        exact: false
     }
 ];
 

@@ -53,28 +53,6 @@ class LoginPage extends Component {
         });
     }
 
-    onClickRegister = (e) => {
-        e.preventDefault();
-        var { txtNameRegister, txtPasswordRegister } = this.state;
-        // var { history } = this.props;
-        callApi('register', 'POST', {
-            username: txtNameRegister,
-            password: txtPasswordRegister,
-        }).then(res => {
-            console.log(res);
-            // history.push("/");
-        }).catch(function (error) {
-            if (error.response) {
-                // Request made and server responded
-                console.log(error.response);
-                // if (error.response.data) {
-                //     alert("The username or password is incorrect");
-                // }
-                //   history.push("/");
-            }
-        });
-    }
-
     handleClick(lang) {
         i18next.changeLanguage(lang)
     }
@@ -128,51 +106,6 @@ class LoginPage extends Component {
                         <Facebook />
                     </form>
                 </div>
-
-                
-                {/* register form
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                    <form onSubmit={this.onClickRegister} >
-                        <div className="form-group">
-                            <label >{t('UserNameRegister.1')} </label>
-                            <input
-
-                                type="text"
-                                className="form-control"
-                                name="txtNameRegister"
-                                value={txtNameRegister}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label >{t('PasswordRegister.1')} </label>
-                            <input
-
-                                type="password"
-                                className="form-control"
-                                name="txtPasswordRegister"
-                                value={txtPasswordRegister}
-                                onChange={this.onChange}
-                            />
-                        </div>
-                        {/* <div className="form-group">
-                            <label >{t('EmailRegister.1')} </label>
-                            <input
-
-                                type="password"
-                                className="form-control"
-                                name="txtMailRegister"
-                                value={txtMailRegister}
-                                onChange={this.onChange}
-                            />
-                        </div> */}
-                        {/* <button
-                            type="submit"
-                            className="btn btn-primary">
-                            {t('Register.1')}
-                        </button>
-                    </form> */}
-                {/* </div> } */}
             </div >
         );
     }
