@@ -19,5 +19,8 @@
     },
     "Register": {
         "1": "登録"
+    },
+    "Error": {
+        "WRONG_USERNAME_PASSWORD": "ユーザー名とパスワードが間違っています"
     }
 }

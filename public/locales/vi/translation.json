@@ -19,5 +19,8 @@
     },
     "Register": {
         "1": "Đăng kí"
+    },
+    "Error": {
+        "WRONG_USERNAME_PASSWORD": "Tên người dùng và mật khẩu sai"
     }
 }
