@@ -21,7 +21,12 @@ const menus = [
         name: 'Register with validation',
         to: '/register2',
         exact: false
-    }
+    },
+    {
+        name: 'show/hide',
+        to: '/register3',
+        exact: false
+    },
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => {

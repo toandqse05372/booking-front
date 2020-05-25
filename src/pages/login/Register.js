@@ -27,6 +27,8 @@ class LoginPage extends Component {
 
     }
 
+  
+      
     onClickRegister = (e) => {
         e.preventDefault();
         var { txtNameRegister, 
@@ -61,8 +63,6 @@ class LoginPage extends Component {
 
     render() {
         const { t } = this.props;
-
-
         var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
         return (
             <div >
@@ -91,7 +91,6 @@ class LoginPage extends Component {
                                 
                             />
                         </div>
-
 
                         <div className="form-group">
                             <label >{t('PasswordRegister.1')} </label>

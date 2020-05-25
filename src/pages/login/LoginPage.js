@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 // import {Link} from 'react-router-dom';
 import Facebook from './Facebook';
+import ReactCountryFlag from "react-country-flag"
 
 class LoginPage extends Component {
 
@@ -15,6 +16,8 @@ class LoginPage extends Component {
             txtNameRegister: '',
             txtPasswordRegister: '',
             // txtMailRegister: ''
+            nameDropDown: 'vi',
+            countryCode: 'VN'
         }
     }
 
@@ -32,6 +35,7 @@ class LoginPage extends Component {
     //sent name & password to server
     onClickLogin = (e) => {
         e.preventDefault();
+        const { t } = this.props;
         var { txtName, txtPassword } = this.state;
         var { history } = this.props;
         callApi('login', 'POST', {
@@ -44,8 +48,8 @@ class LoginPage extends Component {
             if (error.response) {
                 // Request made and server responded
                 console.log(error.response.data);
-                if (error.response.data) {
-                    alert("The username or password is incorrect");
+                if (error.response.data.toString() === 'WRONG_USERNAME_PASSWORD') {
+                    alert(t('Error.WRONG_USERNAME_PASSWORD'));
                 }
                 //   history.push("/");
 
@@ -53,16 +57,20 @@ class LoginPage extends Component {
         });
     }
 
-    handleClick(lang) {
+    handleClick(lang, countryCode) {
         i18next.changeLanguage(lang)
+        this.setState({
+            nameDropDown: lang,
+            countryCode: countryCode
+        });
     }
 
     render() {
         const { t } = this.props;
-        var { txtName, txtPassword } = this.state;
+        var { txtName, txtPassword, nameDropDown, countryCode } = this.state;
         return (
             <div >
-                <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
+                {/* <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
                     <button onClick={() => this.handleClick('en')} >
                         English
                     </button>
@@ -71,15 +79,25 @@ class LoginPage extends Component {
                     </button>
                     <button onClick={() => this.handleClick('vi')} >
                         Vietnamese
-                    </button>
-                </nav>
+                    </button> */}
+                <div className="dropdown">
+                    <button className="btn btn-primary dropdown-toggle"
+                        type="button" data-toggle="dropdown">
+                        {nameDropDown} <ReactCountryFlag countryCode={countryCode} svg />
+                        <span className="caret"></span></button>
+                    <ul className="dropdown-menu">
+                        <li onClick={() => this.handleClick('en', 'US')}><ReactCountryFlag countryCode="US" svg />English</li>
+                        <li onClick={() => this.handleClick('jap', 'JP')}><ReactCountryFlag countryCode="JP" svg />日本語</li>
+                        <li onClick={() => this.handleClick('vi', 'VN')}><ReactCountryFlag countryCode="VN" svg />Vietnamese</li>
+                    </ul>
+                </div>
+
                 {/* login form */}
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                     <form onSubmit={this.onClickLogin} >
                         <div className="form-group">
                             <label >{t('UserName.1')} </label>
                             <input
-
                                 type="text"
                                 className="form-control"
                                 name="txtName"
@@ -102,7 +120,6 @@ class LoginPage extends Component {
                             className="btn btn-primary">
                             {t('Login.1')}
                         </button>
-                        
                         <Facebook />
                     </form>
                 </div>
