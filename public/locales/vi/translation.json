@@ -22,5 +22,8 @@
     },
     "Error": {
         "WRONG_USERNAME_PASSWORD": "Tên người dùng và mật khẩu sai"
+    },
+    "HomePage":{
+        "CHANGE_HOMEPAGE": "Trang chủ bạn nhé"
     }
 }

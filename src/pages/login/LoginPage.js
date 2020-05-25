@@ -59,15 +59,17 @@ class LoginPage extends Component {
 
     handleClick(lang, countryCode) {
         i18next.changeLanguage(lang)
-        this.setState({
-            nameDropDown: lang,
-            countryCode: countryCode
-        });
+        // this.setState({
+        //     nameDropDown: lang,
+        //     countryCode: countryCode
+        // });
     }
 
     render() {
         const { t } = this.props;
-        var { txtName, txtPassword, nameDropDown, countryCode } = this.state;
+        // var { txtName, txtPassword, nameDropDown, countryCode } = this.state;
+        var { txtName, txtPassword } = this.state;
+
         return (
             <div >
                 {/* <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
@@ -80,7 +82,7 @@ class LoginPage extends Component {
                     <button onClick={() => this.handleClick('vi')} >
                         Vietnamese
                     </button> */}
-                <div className="dropdown">
+                {/* <div className="dropdown">
                     <button className="btn btn-primary dropdown-toggle"
                         type="button" data-toggle="dropdown">
                         {nameDropDown} <ReactCountryFlag countryCode={countryCode} svg />
@@ -90,7 +92,7 @@ class LoginPage extends Component {
                         <li onClick={() => this.handleClick('jap', 'JP')}><ReactCountryFlag countryCode="JP" svg />日本語</li>
                         <li onClick={() => this.handleClick('vi', 'VN')}><ReactCountryFlag countryCode="VN" svg />Vietnamese</li>
                     </ul>
-                </div>
+                </div> */}
 
                 {/* login form */}
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">

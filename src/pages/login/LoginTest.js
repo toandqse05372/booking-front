@@ -112,7 +112,7 @@ class LoginTest extends Component {
         var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
         return (
             <div >
-                <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
+                {/* <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
                     <button onClick={() => this.handleClick('en')} >
                         EnglishHHHHHH
                     </button>
@@ -122,7 +122,7 @@ class LoginTest extends Component {
                     <button onClick={() => this.handleClick('vi')} >
                         Vietnamese
                     </button>
-                </nav>
+                </nav> */}
                 {/* register form */}
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
                     <form onSubmit={this.onClickRegister} >

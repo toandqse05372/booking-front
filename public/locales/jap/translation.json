@@ -22,5 +22,8 @@
     },
     "Error": {
         "WRONG_USERNAME_PASSWORD": "ユーザー名とパスワードが間違っています"
+    },
+    "HomePage":{
+        "CHANGE_HOMEPAGE": "ホームページ"
     }
 }
