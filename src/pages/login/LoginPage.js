@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 // import {Link} from 'react-router-dom';
 import Facebook from './Facebook';
 import { Form, InputGroup, Button, Col } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class LoginPage extends Component {
 
@@ -117,11 +117,11 @@ class LoginPage extends Component {
                     <Form.Group as={Col} md="4">
                         <Form.Label>{t('Password.1')}</Form.Label>
                         &nbsp;
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                             id="e"
                             icon={this.state.visibility ? "eye-slash" : "eye"}
                             onClick={this.toggleShow}
-                        />
+                        /> */}
                         <Form.Control
                             onChange={this.onChange}
                             required

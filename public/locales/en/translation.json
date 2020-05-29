@@ -28,5 +28,11 @@
     },
     "MyOrder":{
         "1": "My Order"
+    },
+    "MyCart":{
+        "1": "My Cart"
+    },
+    "NotFound":{
+        "1": "Not Found"
     }
 }

@@ -8,7 +8,8 @@ import {
     NavDropdown, FormControl
 } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CardText } from 'react-bootstrap/Card';
 
 const menus = [
     // {
@@ -22,24 +23,26 @@ const menus = [
         to: '/NotFound',
         exact: false,
         icon: 'file-alt',
-
+        trans: 'tBook'
     },
     {
         name: 'Giỏ hàng',
         to: '/NotFound',
         exact: false,
-        icon: 'shopping-cart'
+        icon: 'shopping-cart',
+        trans: 'tCart'
     },
     {
         name: 'Đăng nhập',
         to: '/login',
         exact: false,
+        trans: 'tLogin'
     },
     {
         name: 'Đăng kí',
         to: '/register',
         exact: false,
-
+        trans: 'tRegister'
     },
 
     // {
@@ -53,18 +56,23 @@ const menus = [
     //     exact: false
     // }
 ];
+
 const MenuLink = ({ label, to, activeOnlyWhenExact, icon }) => {
+
     return (
         <Route
             path={to}
             exact={activeOnlyWhenExact}
             children={({ match }) => {
+
                 var active = match ? 'active' : '';
                 return (
                     <li className={active}>
                         <Link className="nav-link" to={to}>
-                            <FontAwesomeIcon icon={icon} /> {label}
+                            {/* <FontAwesomeIcon icon={icon} />  */}
+                            {label}
                         </Link>
+                        {/* t('MyOrder.1') */}
 
                         {/* <Nav.Link href={to}>
                             {label}
@@ -81,21 +89,47 @@ class Menu2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nameDropDown: 'en',
-            countryCode: 'US'
+            dropTrans: [
+                {
+                    nameDropDown: 'en',
+                    countryCode: 'US'
+                }
+            ]
+
         }
     }
     handleClick(lang, countryCode) {
         i18next.changeLanguage(lang)
+        var dropTrans = [
+            {
+                nameDropDown: lang,
+                countryCode: countryCode
+            }
+        ]
         this.setState({
-            nameDropDown: lang,
-            countryCode: countryCode
+            dropTrans: dropTrans
+        });
+        localStorage.setItem('dropTrans', JSON.stringify(dropTrans));
+    }
+
+    componentWillMount() {
+        var dropTrans = JSON.parse(localStorage.getItem('dropTrans'));
+        this.setState({
+            dropTrans: dropTrans
         });
     }
+
+    // componentDidMount = (lang, countryCode) => {
+    //     this.setState({
+    //         nameDropDown: 'en',
+    //         countryCode: 'US'
+    //     });
+    // }
+
     render() {
         // const { t } = this.props;
         // {t('Password.1')}
-        var { nameDropDown, countryCode } = this.state;
+        var { dropTrans } = this.state;
         return (
             <Navbar className="fixed" bg="primary" variant="light" expand="lg">
                 <Navbar.Brand href="/">
@@ -111,32 +145,49 @@ class Menu2 extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <NavDropdown
-                            // title = {nameDropDown}
-                            title=
-                            {<ReactCountryFlag countryCode={countryCode} svg />}
-                            // {nameDropDown}
-                            id="basic-nav-dropdown">
-                            <NavDropdown.Item
-                                // href="#action/3.1"
-                                onClick={() => this.handleClick('en', 'US')} >
-                                <ReactCountryFlag countryCode="US" svg />
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item
-                                // href="#action/3.2"
-                                onClick={() => this.handleClick('jap', 'JP')}>
-                                <ReactCountryFlag countryCode="JP" svg />
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item
-                                // href="#action/3.3"
-                                onClick={() => this.handleClick('vi', 'VN')}>
-                                <ReactCountryFlag countryCode="VN" svg />
-                            </NavDropdown.Item>
-                            {/* <NavDropdown.Divider />
+                        {dropTrans.map((data, index) => {
+                            return (
+                                // {data.nameDropDown}
+                                // {data.countryCode}
+                                <NavDropdown
+                                    // title = {nameDropDown}
+                                    key={data.nameDropDown}
+                                    title={<ReactCountryFlag
+                                        countryCode={data.countryCode}
+                                        svg
+                                        style={{
+                                            width: '2em',
+                                            height: '2em',
+                                        }}
+                                        title="US"
+                                    />} 
+                                    // title = {data.nameDropDown}
+                                    // {<ReactCountryFlag countryCode={dropTrans.countryCode} svg />}
+                                    // {nameDropDown}
+                                    id="basic-nav-dropdown">
+                                    <NavDropdown.Item
+                                        // href="#action/3.1"
+                                        onClick={() => this.handleClick('en', 'US')} >
+                                        <ReactCountryFlag countryCode="US" svg />
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item
+                                        // href="#action/3.2"
+                                        onClick={() => this.handleClick('jap', 'JP')}>
+                                        <ReactCountryFlag countryCode="JP" svg />
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item
+                                        // href="#action/3.3"
+                                        onClick={() => this.handleClick('vi', 'VN')}>
+                                        <ReactCountryFlag countryCode="VN" svg />
+                                    </NavDropdown.Item>
+                                    {/* <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
-                        </NavDropdown>
+                                </NavDropdown>
+                            );
+                        })}
+
                         {this.showMenus(menus)}
                         {/* <FontAwesomeIcon icon="shopping-cart"/> */}
                         {/* <Nav.Link href="#link">Link</Nav.Link> */}
@@ -151,33 +202,54 @@ class Menu2 extends Component {
         );
     }
 
+    hmm = (trans) => {
+        const { t } = this.props;
+        const order = t('MyOrder.1');
+        const cart = t('MyCart.1');
+        const login = t('Login.1');
+        const register = t('Register.1');
+        if (trans === "tBook") {
+            return order;
+        } else
+            if (trans === "tCart") {
+                return cart;
+            } else
+                if (trans === "tLogin") {
+                    return login;
+                } else
+                    if (trans === "tRegister") {
+                        return register;
+                    }
+        return trans;
+    }
+
     showMenus = (theMenus) => {
         var result = null;
-        const { t } = this.props;
-        var pass = t('MyOrder.1');
-        var pass = t('password.1');
+        // var pass = t('password.1');
+
         if (theMenus.length > 0) {
             result = theMenus.map((menu, index) => {
+                const hehe = this.hmm(menu.trans);
+                console.log(hehe);
                 return (
-                    // <Nav.Link
-                    //     key={index}
-                    //     href={menu.to}>
-                    //     {menu.name}
-                    // </Nav.Link>
+
                     <MenuLink
                         key={index}
-                        // label={menu.name === "Đặt chỗ của tôi" ? pass : ""}
-                        label={menu.name}
+                        // label={ menu.trans === 'book' ? order 
+                        // : menu.name }
+
+                        label={hehe}
+
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
                         icon={menu.icon}
-
                     />
                 );
             });
         }
         return result;
     }
+
 }
 
 export default withTranslation()(Menu2);

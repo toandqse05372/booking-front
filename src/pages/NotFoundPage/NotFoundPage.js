@@ -6,7 +6,7 @@ class NotFoundPage extends Component {
         const { t } = this.props;
         return (
             <div className="container">
-                <h1>not found</h1>
+                <h1>{t('NotFound.1')}</h1>
             </div>
         );
     }

@@ -28,5 +28,11 @@
     },
     "MyOrder":{
         "1": "Đơn hàng của tôi"
+    },
+    "MyCart":{
+        "1": "Giỏ hàng của tôi"
+    },
+    "NotFound":{
+        "1": "Không tìm thấy page"
     }
 }
