@@ -84,14 +84,14 @@ class Register extends Component {
       <Form noValidate validated={validated} onSubmit={this.onClickRegister}>
         <Form.Row>
           <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-            <Form.Label>Username</Form.Label>
+            <Form.Label>{t('UserName.1')}</Form.Label>
             <InputGroup>
               {/* <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                   </InputGroup.Prepend> */}
               <Form.Control
                 type="text"
-                placeholder="Username"
+                placeholder={t('UserName.1')}
                 aria-describedby="inputGroupPrepend"
                 required
                 name="txtNameRegister"
@@ -105,7 +105,7 @@ class Register extends Component {
           </Form.Group>
 
           <Form.Group as={Col} md="4">
-            <Form.Label>Pass</Form.Label>
+            <Form.Label>{t('Password.1')}</Form.Label>
             <FontAwesomeIcon
               id="e"
               icon={this.state.visibility ? "eye-slash" : "eye"}
@@ -117,7 +117,7 @@ class Register extends Component {
               required
               pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,}$"
               type={this.state.hidden ? "password" : "text"}
-              placeholder="PassWord"
+              placeholder={t('Password.1')}
               // defaultValue="Mark"
               name="txtPasswordRegister"
               value={txtPasswordRegister}

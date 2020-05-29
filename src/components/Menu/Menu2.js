@@ -77,6 +77,7 @@ class Menu2 extends Component {
     }
     render() {
         const  {t}  = this.props;
+        
 
         var { nameDropDown, countryCode } = this.state;
         return (
@@ -88,7 +89,7 @@ class Menu2 extends Component {
                         width="30"
                         height="30"
                         className="d-inline-block align-top"
-                    />{' '}
+                    />
                     Goboki
                     </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -132,10 +133,10 @@ class Menu2 extends Component {
         );
     }
 
-    showMenus = (menus) => {
+    showMenus = (theMenus) => {
         var result = null;
-        if (menus.length > 0) {
-            result = menus.map((menu, index) => {
+        if (theMenus.length > 0) {
+            result = theMenus.map((menu, index) => {
                 return (
                     // <Nav.Link
                     //     key={index}
