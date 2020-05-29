@@ -1,173 +1,178 @@
 import React, { Component } from 'react';
 import callApi from './../../utils/apiCaller';
-import i18next from 'i18next';
+// import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
-import * as Regex from './../../constants/Regex';
-import './testStyle.css';
+// import * as Regex from './../../constants/Regex';
+// import './testStyle.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Form, InputGroup, Button, Col } from 'react-bootstrap'
 
-class LoginPage extends Component {
+class RegisterCopy extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            txtNameRegister: '',
-            txtPasswordRegister: '',
-            txtMailRegister: '',
-            errors: {
-                errFullName: '',
-                errEmail: '',
-                errPassword: '',
-            },
-            hidden: true
+  constructor(props) {
+    super(props);
+    this.state = {
+      validated: false,
+      validatedFiled: false,
+      txtNameRegister: '',
+      txtPasswordRegister: '',
+      txtMailRegister: '',
+      hidden: true,
+      visibility: false
+    }
+  }
+
+  onChange = (e) => {
+    var target = e.target;
+    var name = target.name;
+    var value = target.value;
+    // var { errors } = this.state;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onClickRegister = (e) => {
+    e.preventDefault();
+    var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
+    // var { history } = this.props;
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      console.log("1")
+      e.preventDefault();
+      e.stopPropagation();
+    } else {
+      callApi('register', 'POST', {
+        username: txtNameRegister,
+        password: txtPasswordRegister,
+        email: txtMailRegister,
+      }).then(res => {
+        console.log(res);
+        // alert("Register Success");
+        // history.push("/login");
+      }).catch(function (myError) {
+        if (myError.response) {
+          // Request made and server responded
+          console.log(myError.response);
+          // if (error.response.data) {
+          //     alert("The username or password is incorrect");
+          // }
+          //   history.push("/");
         }
+      });
     }
 
-    //mỗi khi text input thay đổi sẽ gọi hàm này.
-    onChange = (e) => {
-        var target = e.target;
-        var name = target.name;
-        var value = target.value;
-        var {errors} = this.state;
-        this.setState({
-            [name]: value
-        });
-        // chạy theo các trường hợp input
-        switch (name) {
-            case 'txtNameRegister':
-                //nếu thỏa mãn not Null set error rỗng, ngược lại set mesage 
-                errors.errFullName =
-                    (value.toString().trim().length)
-                        ? ''
-                        : 'Not Null';
-                break;
-            case 'txtMailRegister':
-                errors.errEmail =
-                //nếu thỏa mãn regex thì set error rỗng, ngược lại set message
-                    ( Regex.VALID_EMAIL.test(value)  )
-                        ? ''
-                        : 'Email is not valid!';
-                break;
-            case 'txtPasswordRegister':
-                errors.errPassword =
-                //nếu thỏa mãn regex thì set error rỗng, ngược lại set message
-                    Regex.VALID_PASSWORD.test(value)
-                        ? ''
-                        : 'At least 8 words | at least 1 number | !whiteSpace';
-                break;
-            default:
-                break;
-        }
+    this.setState({
+      validated: true
+    })
+  }
+
+  toggleShow = () => {
+    this.setState({
+      hidden: !this.state.hidden,
+      visibility: !this.state.visibility
+    });
+  }
+  componentDidMount() {
+    if (this.props.txtPasswordRegister) {
+      this.setState({ txtPasswordRegister: this.props.txtPasswordRegister });
     }
+  }
+  render() {
+    var { validated, txtNameRegister, validatedFiled,
+      txtPasswordRegister, txtMailRegister } = this.state;
 
-    onClickRegister = (e) => {
-        e.preventDefault();
-        var { txtNameRegister, 
-            txtPasswordRegister, 
-            txtMailRegister } = this.state;
-        var { history } = this.props;
-        callApi('register', 'POST', {
-            username: txtNameRegister,
-            password: txtPasswordRegister,
-            email: txtMailRegister,
-        }).then(res => {
-            console.log(res);
-            // alert("Register Success");
-            history.push("/login");
-        }).catch(function (myError) {
-            if (myError.response) {
-                // Request made and server responded
-                console.log(myError.response);
-                // if (error.response.data) {
-                //     alert("The username or password is incorrect");
-                // }
-                //   history.push("/");
-            }
-        });
-    }
+    return (
+      <Form noValidate validated={validated} onSubmit={this.onClickRegister}>
+        <Form.Row>
+          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+            <Form.Label>Username</Form.Label>
+            <InputGroup>
+              {/* <InputGroup.Prepend>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+              </InputGroup.Prepend> */}
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                aria-describedby="inputGroupPrepend"
+                required
+                name="txtNameRegister"
+                value={txtNameRegister}
+                onChange={this.onChange}
+              />
+              <Form.Control.Feedback type="invalid">
+                Please choose a username.
+                </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
 
-    handleClick = (lang) => {
-        i18next.changeLanguage(lang)
-    }
+          <Form.Group as={Col} md="4">
+            <Form.Label>Pass</Form.Label>
+            <Form.Control
+              onChange={this.onChange}
+              required
+              pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,}$"
+              type={this.state.hidden ? "password" : "text"}
+              placeholder="PassWord"
+              // defaultValue="Mark"
+              name="txtPasswordRegister"
+              value={txtPasswordRegister}
 
-    render() {
-        const { t } = this.props;
-        const { errors } = this.state;
+            />
+            <Form.Control.Feedback className="form-control-feedback" type="valid">
+              Look nice.
+                </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              look vcl.
+                </Form.Control.Feedback>
+          </Form.Group>
+          {/* <Form.Group as={Col} md="4" controlId="validationCustom02">
+            <Form.Label>Last name</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              placeholder="Last name"
+              defaultValue="Otto"
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group> */}
 
-        var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
-        return (
-            <div >
-                {/* <nav style={{ width: '100%', padding: '2rem 0', backgroundColor: 'gray' }}>
-                    <button onClick={() => this.handleClick('en')} >
-                        English
-                    </button>
-                    <button onClick={() => this.handleClick('jap')} >
-                        日本語
-                    </button>
-                    <button onClick={() => this.handleClick('vi')} >
-                        Vietnamese
-                    </button>
-                </nav> */}
-                {/* register form */}
-                <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-                    <form onSubmit={this.onClickRegister} >
-                        <div className="form-group">
-                            <label >{t('UserNameRegister.1')} </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="txtNameRegister"
-                                value={txtNameRegister}
-                                onChange={this.onChange}
-                                
-                            />
-                            {errors.errFullName.length > 0 &&
-                                <span className='error'>
-                                    {errors.errFullName}
-                                </span>}
-                        </div>
-
-
-                        <div className="form-group">
-                            <label >{t('PasswordRegister.1')} </label>
-                            <input
-                                id="myInput"
-                                type={this.state.hidden ? "password" : "text"}
-                                className="form-control"
-                                name="txtPasswordRegister"
-                                value={txtPasswordRegister}
-                                onChange={this.onChange}
-                            />
-                            <br></br>
-                            {errors.errPassword.length > 0 &&
-                                <span className='error'>{errors.errPassword}
-                                </span>}
-                        </div>
+        </Form.Row>
+        <Form.Row>
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>Mail</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Mail"
+              required
+              pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+              name="txtMailRegister"
+              value={txtMailRegister}
+              onChange={this.onChange}
+            />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid city.
+              <i className="fas fa-eye"></i>
+              <i className="fas fa-camera"></i>
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Form.Row>
+        <FontAwesomeIcon
+          id="e"
+          // icon="eye" 
+          icon={this.state.visibility ? "eye-slash" : "eye"}
+          onClick={this.toggleShow}
+        />
+        &nbsp;
+        <Button type="submit">Submit form - {validatedFiled ? "valid" : "invalid"}</Button>
+      </Form>
 
 
-                        <div className="form-group">
-                            <label >{t('EmailRegister.1')} </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="txtMailRegister"
-                                value={txtMailRegister}
-                                onChange={this.onChange}
-                            />
-                            {errors.errEmail.length > 0 &&
-                                <span className='error'>{errors.errEmail}
-                                </span>}
-                        </div>
-                        <button
-                            type="submit"
-                            className="btn btn-primary">
-                            {t('Register.1')}
-                        </button>
-                    </form>
-                </div>
-            </div >
-        );
-    }
+
+    );
+  }
 
 }
 
-export default withTranslation()(LoginPage);
+export default withTranslation()(RegisterCopy);

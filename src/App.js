@@ -3,11 +3,17 @@ import './App.css';
 import routes from './Config/routes';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
+import Menu2 from './components/Menu/Menu2';
+import {  faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+library.add(  faEye, faEyeSlash )
+
 class App extends Component {
     render() {
         return (
             <Router>
-                <Menu />
+                {/* <Menu /> */}
+                <Menu2 />
                 <div>
                     <div className="container">
                         <div className="row">

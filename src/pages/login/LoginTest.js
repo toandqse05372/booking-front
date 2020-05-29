@@ -3,7 +3,7 @@ import callApi from '../../utils/apiCaller';
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import * as Regex from '../../constants/Regex';
-import './testStyle.css';
+// import './testStyle.css';
 
 class LoginTest extends Component {
 

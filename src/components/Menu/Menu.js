@@ -18,16 +18,16 @@ const menus = [
         to: '/register',
         exact: false
     },
-    {
-        name: 'Register with validation',
-        to: '/register2',
-        exact: false
-    },
-    {
-        name: 'show/hide',
-        to: '/register3',
-        exact: false
-    },
+    // {
+    //     name: 'Register with validation',
+    //     to: '/register2',
+    //     exact: false
+    // },
+    // {
+    //     name: 'show/hide',
+    //     to: '/register3',
+    //     exact: false
+    // },
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
@@ -90,19 +90,15 @@ class Menu extends Component {
 
     showMenus = (menus) => {
         var result = null;
-
         if (menus.length > 0) {
             result = menus.map((menu, index) => {
                 return (
-
                     <MenuLink
                         key={index}
                         label={menu.name}
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
                     />
-
-
                 );
             });
         }
