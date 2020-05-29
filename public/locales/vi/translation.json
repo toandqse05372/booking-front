@@ -25,5 +25,8 @@
     },
     "HomePage":{
         "CHANGE_HOMEPAGE": "Trang chủ bạn nhé"
+    },
+    "MyOrder":{
+        "1": "Đơn hàng của tôi"
     }
 }

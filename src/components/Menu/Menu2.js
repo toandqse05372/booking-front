@@ -8,24 +8,40 @@ import {
     NavDropdown, FormControl
 } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const menus = [
+    // {
+    //     name: 'Trang chu',
+    //     to: '/',
+    //     exact: true
+    // },
+
     {
-        name: 'Trang chu',
-        to: '/',
-        exact: true
+        name: 'Đặt chỗ của tôi',
+        to: '/NotFound',
+        exact: false,
+        icon: 'file-alt',
+
     },
     {
-        name: 'Login',
+        name: 'Giỏ hàng',
+        to: '/NotFound',
+        exact: false,
+        icon: 'shopping-cart'
+    },
+    {
+        name: 'Đăng nhập',
         to: '/login',
-        exact: false
+        exact: false,
     },
     {
-        name: 'Register',
+        name: 'Đăng kí',
         to: '/register',
-        exact: false
+        exact: false,
+
     },
+
     // {
     //     name: 'Register with validation',
     //     to: '/register2',
@@ -37,7 +53,7 @@ const menus = [
     //     exact: false
     // }
 ];
-const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
+const MenuLink = ({ label, to, activeOnlyWhenExact, icon }) => {
     return (
         <Route
             path={to}
@@ -47,8 +63,9 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => {
                 return (
                     <li className={active}>
                         <Link className="nav-link" to={to}>
-                            {label}
+                            <FontAwesomeIcon icon={icon} /> {label}
                         </Link>
+
                         {/* <Nav.Link href={to}>
                             {label}
                         </Nav.Link> */}
@@ -76,13 +93,12 @@ class Menu2 extends Component {
         });
     }
     render() {
-        const  {t}  = this.props;
-        
-
+        // const { t } = this.props;
+        // {t('Password.1')}
         var { nameDropDown, countryCode } = this.state;
         return (
-            <Navbar bg="primary" variant="dark" expand="lg">
-                <Navbar.Brand href="#home">
+            <Navbar className="fixed" bg="primary" variant="light" expand="lg">
+                <Navbar.Brand href="/">
                     <img
                         alt=""
                         src="/logo192.png"
@@ -94,15 +110,13 @@ class Menu2 extends Component {
                     </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        {this.showMenus(menus)}
-                        {/* <Nav.Link href="#link">Link</Nav.Link> */}
-                        <NavDropdown 
-                        // title = {nameDropDown}
-                        title=  
-                        {<ReactCountryFlag countryCode={countryCode} svg />}
-                        // {nameDropDown}
-                        id="basic-nav-dropdown">
+                    <Nav className="ml-auto">
+                        <NavDropdown
+                            // title = {nameDropDown}
+                            title=
+                            {<ReactCountryFlag countryCode={countryCode} svg />}
+                            // {nameDropDown}
+                            id="basic-nav-dropdown">
                             <NavDropdown.Item
                                 // href="#action/3.1"
                                 onClick={() => this.handleClick('en', 'US')} >
@@ -119,15 +133,19 @@ class Menu2 extends Component {
                                 // href="#action/3.3"
                                 onClick={() => this.handleClick('vi', 'VN')}>
                                 <ReactCountryFlag countryCode="VN" svg />
-                                </NavDropdown.Item>
+                            </NavDropdown.Item>
                             {/* <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                         </NavDropdown>
+                        {this.showMenus(menus)}
+                        {/* <FontAwesomeIcon icon="shopping-cart"/> */}
+                        {/* <Nav.Link href="#link">Link</Nav.Link> */}
+
                     </Nav>
-                    <Form inline>
+                    {/* <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
-                    </Form>
+                    </Form> */}
                 </Navbar.Collapse>
             </Navbar>
         );
@@ -135,6 +153,9 @@ class Menu2 extends Component {
 
     showMenus = (theMenus) => {
         var result = null;
+        const { t } = this.props;
+        var pass = t('MyOrder.1');
+        var pass = t('password.1');
         if (theMenus.length > 0) {
             result = theMenus.map((menu, index) => {
                 return (
@@ -145,9 +166,12 @@ class Menu2 extends Component {
                     // </Nav.Link>
                     <MenuLink
                         key={index}
+                        // label={menu.name === "Đặt chỗ của tôi" ? pass : ""}
                         label={menu.name}
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
+                        icon={menu.icon}
+
                     />
                 );
             });

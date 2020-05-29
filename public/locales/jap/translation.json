@@ -25,5 +25,8 @@
     },
     "HomePage":{
         "CHANGE_HOMEPAGE": "ホームページ"
+    },
+    "MyOrder":{
+        "1": "私の注文"
     }
 }

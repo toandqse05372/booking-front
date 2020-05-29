@@ -25,5 +25,8 @@
     },
     "HomePage":{
         "CHANGE_HOMEPAGE": "Home Page"
+    },
+    "MyOrder":{
+        "1": "My Order"
     }
 }

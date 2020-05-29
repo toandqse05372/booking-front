@@ -4,6 +4,7 @@ import HomePage from './../pages/HomePage/HomePage';
 import Register from './../pages/login/Register';
 import RegisterCopy from '../pages/login/Register copy';
 import LoginTest from '../pages/login/LoginTest';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 
 const routers = [
@@ -26,6 +27,11 @@ const routers = [
         path :'/register3',
         exact: false,
         main: ({history}) => <LoginTest history={history}/>
+    },
+    {
+        path :'/NotFound',
+        exact: false,
+        main: ({history}) => <NotFoundPage history={history}/>
     },
     {
         path: '/',

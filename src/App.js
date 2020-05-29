@@ -4,9 +4,9 @@ import routes from './Config/routes';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Menu from './components/Menu/Menu';
 import Menu2 from './components/Menu/Menu2';
-import {  faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import {  faEye, faEyeSlash, faShoppingCart, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-library.add(  faEye, faEyeSlash )
+library.add(  faEye, faEyeSlash, faShoppingCart, faFileAlt )
 
 class App extends Component {
     render() {
