@@ -151,7 +151,7 @@ class Menu2 extends Component {
                     <Nav className="ml-auto">
                         {dropTrans.map((data, index) => {
                             return (
-                                <NavDropdown
+                                <NavDropdown id="dropbtn"
                                     // title = {nameDropDown}
                                     key={data.nameDropDown}
                                     title={<ReactCountryFlag
@@ -164,22 +164,21 @@ class Menu2 extends Component {
                                         title="US"
                                     />}
                                     id="basic-nav-dropdown">
-                                    <NavDropdown.Item
+                                    <NavDropdown.Item id="boxSizing"
                                         // href="#action/3.1"
                                         onClick={() => this.handleClick('en', 'US')} >
-                                        <ReactCountryFlag countryCode="US" svg />
+                                        <ReactCountryFlag countryCode="US" svg /> English(US)
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item
                                         // href="#action/3.2"
                                         onClick={() => this.handleClick('jap', 'JP')}>
-                                        <ReactCountryFlag countryCode="JP" svg />
+                                        <ReactCountryFlag countryCode="JP" svg /> Japanese
                                     </NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item
-                                        // href="#action/3.3"
                                         onClick={() => this.handleClick('vi', 'VN')}>
-                                        <ReactCountryFlag countryCode="VN" svg />
+                                        <ReactCountryFlag countryCode="VN" svg /> Vietnamese
                                     </NavDropdown.Item>
                                 </NavDropdown>
                             );
