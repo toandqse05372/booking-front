@@ -76,7 +76,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
                             to={to}>
                             <FontAwesomeIcon icon={icon} />
                             {' '}
-                            {label}
+                            {label} 
                         </Link>
                         {/* <Nav.Link href={to}>
                             {label}
