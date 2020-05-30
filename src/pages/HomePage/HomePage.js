@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-
+import Header from '../../components/Header/Header';
+import { Container, Row, Col } from 'react-bootstrap'
+import Body from '../../components/Body/Body';
+import Search from '../Search/Search';
 class HomePage extends Component {
     render() {
         const { t } = this.props;
         return (
-            <div className="container">
-                <h1>{t('HomePage.CHANGE_HOMEPAGE')}</h1>
-            </div>
+            <Container >
+                {/* <Row>
+                    <Col>{t('HomePage.CHANGE_HOMEPAGE')}</Col>
+                    <Col><Header /></Col>
+                </Row>
+                <Row>
+                    <Col><Body /></Col>
+                </Row> */}
+                <Row>
+                    <Col md={4}><Search /></Col>
+                </Row>
+            </Container>
         );
     }
 }
