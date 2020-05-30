@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Route, Link, NavLink } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import ReactCountryFlag from "react-country-flag"
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import {
-    Form, Navbar, Button, Nav,
-    NavDropdown, FormControl
+    Navbar, Nav,
+    NavDropdown,
 } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CardText } from 'react-bootstrap/Card';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const menus = [
     // {
@@ -23,26 +22,30 @@ const menus = [
         to: '/NotFound',
         exact: false,
         icon: 'file-alt',
-        trans: 'tBook'
+        trans: 'tBook',
+        id: 'bookbtn'
     },
     {
         name: 'Giỏ hàng',
         to: '/NotFound',
         exact: false,
         icon: 'shopping-cart',
-        trans: 'tCart'
+        trans: 'tCart',
+        id: 'cartbtn'
     },
     {
         name: 'Đăng nhập',
         to: '/login',
         exact: false,
-        trans: 'tLogin'
+        trans: 'tLogin',
+        id: 'loginbtn'
     },
     {
         name: 'Đăng kí',
         to: '/register',
         exact: false,
-        trans: 'tRegister'
+        trans: 'tRegister',
+        id: 'registerbtn'
     },
 
     // {
@@ -57,7 +60,7 @@ const menus = [
     // }
 ];
 
-const MenuLink = ({ label, to, activeOnlyWhenExact, icon }) => {
+const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
 
     return (
         <Route
@@ -68,12 +71,13 @@ const MenuLink = ({ label, to, activeOnlyWhenExact, icon }) => {
                 var active = match ? 'active' : '';
                 return (
                     <li className={active}>
-                        <Link className="nav-link" to={to}>
-                            {/* <FontAwesomeIcon icon={icon} />  */}
+                        <Link className="nav-link"
+                            id={id}
+                            to={to}>
+                            <FontAwesomeIcon icon={icon} />
+                            {' '}
                             {label}
                         </Link>
-                        {/* t('MyOrder.1') */}
-
                         {/* <Nav.Link href={to}>
                             {label}
                         </Nav.Link> */}
@@ -131,7 +135,7 @@ class Menu2 extends Component {
         // {t('Password.1')}
         var { dropTrans } = this.state;
         return (
-            <Navbar className="fixed" bg="primary" variant="light" expand="lg">
+            <Navbar className="fixed" bg="white" variant="light" expand="lg">
                 <Navbar.Brand href="/">
                     <img
                         alt=""
@@ -147,8 +151,6 @@ class Menu2 extends Component {
                     <Nav className="ml-auto">
                         {dropTrans.map((data, index) => {
                             return (
-                                // {data.nameDropDown}
-                                // {data.countryCode}
                                 <NavDropdown
                                     // title = {nameDropDown}
                                     key={data.nameDropDown}
@@ -160,10 +162,7 @@ class Menu2 extends Component {
                                             height: '2em',
                                         }}
                                         title="US"
-                                    />} 
-                                    // title = {data.nameDropDown}
-                                    // {<ReactCountryFlag countryCode={dropTrans.countryCode} svg />}
-                                    // {nameDropDown}
+                                    />}
                                     id="basic-nav-dropdown">
                                     <NavDropdown.Item
                                         // href="#action/3.1"
@@ -182,21 +181,11 @@ class Menu2 extends Component {
                                         onClick={() => this.handleClick('vi', 'VN')}>
                                         <ReactCountryFlag countryCode="VN" svg />
                                     </NavDropdown.Item>
-                                    {/* <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
                                 </NavDropdown>
                             );
                         })}
-
                         {this.showMenus(menus)}
-                        {/* <FontAwesomeIcon icon="shopping-cart"/> */}
-                        {/* <Nav.Link href="#link">Link</Nav.Link> */}
-
                     </Nav>
-                    {/* <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
-                    </Form> */}
                 </Navbar.Collapse>
             </Navbar>
         );
@@ -229,17 +218,13 @@ class Menu2 extends Component {
 
         if (theMenus.length > 0) {
             result = theMenus.map((menu, index) => {
-                const hehe = this.hmm(menu.trans);
-                console.log(hehe);
+                const nameTrans = this.hmm(menu.trans);
                 return (
 
                     <MenuLink
+                        id={menu.id}
                         key={index}
-                        // label={ menu.trans === 'book' ? order 
-                        // : menu.name }
-
-                        label={hehe}
-
+                        label={nameTrans}
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
                         icon={menu.icon}

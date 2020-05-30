@@ -27,10 +27,10 @@
         "CHANGE_HOMEPAGE": "Trang chủ bạn nhé"
     },
     "MyOrder":{
-        "1": "Đơn hàng của tôi"
+        "1": "Đặt chỗ của tôi"
     },
     "MyCart":{
-        "1": "Giỏ hàng của tôi"
+        "1": "Giỏ hàng"
     },
     "NotFound":{
         "1": "Không tìm thấy page"
