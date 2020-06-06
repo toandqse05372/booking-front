@@ -46,26 +46,7 @@ const menus = [
         exact: false,
         trans: 'tRegister',
         id: 'registerbtn'
-    },
-    {
-        name: 'name',
-        to: '/listParkSearched',
-        exact: false,
-        icon: 'shopping-cart',
-        trans: 'tCart',
-        id: 'cartbtn'
-    },
-
-    // {
-    //     name: 'Register with validation',
-    //     to: '/register2',
-    //     exact: false
-    // },
-    // {
-    //     name: 'show/hide',
-    //     to: '/register3',
-    //     exact: false
-    // }
+    }
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
@@ -150,7 +131,7 @@ class Menu2 extends Component {
                     <Navbar.Brand >
                         <img
                             alt="NOT FOUND"
-                            src="/logo192.png"
+                            src="/logo512.png"
                             width="30"
                             height="30"
                             className="d-inline-block align-top"

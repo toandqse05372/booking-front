@@ -4,7 +4,7 @@ import { Container, Form, FormControl, Button, InputGroup } from 'react-bootstra
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { actNameP } from './../../actions/index';
-
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
 
@@ -25,100 +25,45 @@ class Search extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    fetchData() {
         const { txtParkName } = this.state;
         this.props.fetchNamePark(txtParkName);
     }
 
     // send request to server to get Park information by Name
     onSubmitSearch = (e) => {
-        const { searchName, txtParkName } = this.props;
-        
-        e.preventDefault();
-        // const {  txtCityID, searchList } = this.state;
-       
-        
-        axios.get('http://localhost:8090/park/searchName', {
-            params: {
-                name: searchName,
-                //page = 1 Temp 
-                page: 1,
-                //limit = 10 Temp 
-                limit: 10,
-            }
-        }).then(res => {
-            // console.log(res.data.listResult);
-            this.setState({
-                searchList: res.data.listResult
-            })
-        }).catch(function (error) {
-            console.log(error.response);
-        });
-    }
-    
-    // get list by map & return by html tag
-    showSearchList = (searchList) => {
-        var result = null;
-        if (searchList.length > 0) {
-            result = searchList.map((data, index) => {
-                return (
-                    //specifire key for each data
-                    <div key={data.id}>
-                        <div>
-                            <ul>
-                                <li>
-                                    <span >address: {data.address}</span>
-                                    <br></br>
-                                    <span >description: {data.description}</span>
-                                    <br></br>
-                                    <span >mail: {data.mail}</span>
-                                    <br></br>
-                                    <span >name: {data.name}</span>
-                                    <br></br>
-                                    <span >open_hours: {data.open_hours}</span>
-                                    <br></br>
-                                    <span>Closed<br></br>Tuesday: 11:00-21:00<br></br></span>
-                                    <span >park_image: {data.park_image}</span>
-                                    <br></br>
-                                    <span >phoneNumber: {data.phoneNumber}</span>
-                                    <br></br>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                );
-            });
-        }
-        else if (searchList.length === 0) {
-            return (
-                <p>Not Found</p>
-            );
-        }
-        return result;
+        // e.preventDefault();
+        this.fetchData();
     }
 
 
     render() {
         // console.log(this.props.myTasks);
-        const { txtParkName, searchList } = this.state;
+        const { txtParkName } = this.state;
         return (
             <Container fluid>
-                <Form onSubmit={this.onSubmitSearch} >
-                    <InputGroup>
-                        <FormControl
-                            type="text"
-                            placeholder="Search"
-                            name="txtParkName"
-                            value={txtParkName}
-                            onChange={this.onChange}
-                        />
-                    </InputGroup>
+                {/* <Form onSubmit={this.onSubmitSearch} > */}
+                <InputGroup>
+                    <FormControl
+                        type="text"
+                        placeholder="Search"
+                        name="txtParkName"
+                        value={txtParkName}
+                        onChange={this.onChange}
+                    />
+                </InputGroup>
+                <Link to="/listParkSearched">
                     <Button
-                        type="Submit"
-                        variant="outline-success">
+                        type="submit"
+                        variant="outline-success"
+                        onClick={this.onSubmitSearch}
+                    >
                         Search
-                    </Button>
-                </Form>
-                {this.showSearchList(searchList)}
+                        </Button>
+                </Link>
+                {/* </Form> */}
             </Container >
         );
     }
@@ -132,7 +77,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        fetchNamePark : (name) => {
+        fetchNamePark: (name) => {
             dispatch(actNameP(name))
         }
     }
