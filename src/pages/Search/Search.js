@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Container, Form, FormControl, Button, InputGroup } from 'react-bootstrap'
-import Information from './../../info-json';
-import callApi from './../../utils/apiCaller'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { actNameP } from './../../actions/index';

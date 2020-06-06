@@ -2,24 +2,19 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { actFetchlistAllParkRequest, actFetchlistAllPark } from './../../actions/index';
+import callApi from './../../utils/apiCaller';
 import axios from 'axios';
-import Pagination from "react-js-pagination";
-import './lol.css'
 
 class ParkListSearched extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchNameState: '',
             searchList: [],
-            activePage: 1,
-            totalPage: 1,
-            testList: [],
-            count: 0,
-            totalItems: 0
         }
     }
 
-    //render list by "searched list"
     showSearchList = (searchList) => {
         var result = null;
         if (searchList.length > 0) {
@@ -60,66 +55,36 @@ class ParkListSearched extends Component {
         return result;
     }
 
-    //received data from API
-    receivedData(searchName) {
-        const { activePage, totalItems } = this.state;
+    componentDidMount = () => {
+        const { searchName } = this.props;
+        console.log(searchName);
+        this.setState({
+            searchNameState: searchName
+        }) 
         axios.get('http://localhost:8090/park/searchName', {
             params: {
-                //park name
                 name: searchName,
-                //page Number  
-                page: activePage,
-                //limit of page
-                limit: 2,
+                //page = 1 Temp 
+                page: 1,
+                //limit = 10 Temp 
+                limit: 10,
             }
         }).then(res => {
-            //set state
+            console.log(res.data.listResult);
             this.setState({
-                totalPage: res.data.totalPage,
-                searchList: res.data.listResult.body,
-                totalItems: res.data.totalItems
+                searchList: res.data.listResult
             })
         }).catch(function (error) {
             console.log(error.response);
         });
     }
 
-    //load all data before render
-    componentDidMount = () => {
-        const { searchName } = this.props;
-        // this.receivedDataWithCounter(searchName);
-        this.receivedData(searchName);
-    }
-
-    //handle changing when user click in "button change number"
-    handlePageChange = (pageNumber) => {
-        const { searchName } = this.props;
-        this.setState({
-            activePage: pageNumber
-        }, () => {
-            this.receivedData(searchName)
-        })
-    }
-
     render() {
-        const { activePage, totalItems, searchList } = this.state;
-        const { searchName } = this.props;
+        const { searchNameState, searchList } = this.state;
         return (
             <Container >
-                <p>Search Name: {searchName} </p>
-                <div>
-                    <Pagination
-                        //what number is selected
-                        activePage={activePage}
-                        //the number of items each page
-                        itemsCountPerPage={2}
-                        //total of items in list
-                        totalItemsCount={totalItems}
-                        //trigger handle page change
-                        onChange={this.handlePageChange.bind(this)}
-                    />
-                    {this.showSearchList(searchList)}
-                </div>
+                <p>Search Name: {searchNameState} </p>
+                {this.showSearchList( searchList )}
             </Container>
         );
     }
@@ -131,4 +96,7 @@ const mapStateToProps = state => {
     }
 };
 
+
+
 export default connect(mapStateToProps, null)(ParkListSearched);
+// export default connect(mapStateToProps, null)(ParkList);
