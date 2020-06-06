@@ -4,6 +4,8 @@ import { Container, Form, FormControl, Button, InputGroup } from 'react-bootstra
 import Information from './../../info-json';
 import callApi from './../../utils/apiCaller'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { actNameP } from './../../actions/index';
 
 
 class Search extends Component {
@@ -25,33 +27,36 @@ class Search extends Component {
         this.setState({
             [name]: value
         })
+        const { txtParkName } = this.state;
+        this.props.fetchNamePark(txtParkName);
     }
 
     // send request to server to get Park information by Name
     onSubmitSearch = (e) => {
+        const { searchName, txtParkName } = this.props;
+        
         e.preventDefault();
-        var { txtParkName, txtCityID, searchList } = this.state;
-        // callApi('park/searchName', 'GET', {
-        //     Name: txtParkName,
-        //     // city_id : txtCityID,
+        // const {  txtCityID, searchList } = this.state;
+       
+        
         axios.get('http://localhost:8090/park/searchName', {
             params: {
-                name: txtParkName,
+                name: searchName,
                 //page = 1 Temp 
                 page: 1,
                 //limit = 10 Temp 
                 limit: 10,
             }
         }).then(res => {
-                console.log(res.data.listResult);
-                this.setState({
-                    searchList: res.data.listResult
-                })
-            }).catch(function (error) {
-                console.log(error.response);
-            });
+            // console.log(res.data.listResult);
+            this.setState({
+                searchList: res.data.listResult
+            })
+        }).catch(function (error) {
+            console.log(error.response);
+        });
     }
-
+    
     // get list by map & return by html tag
     showSearchList = (searchList) => {
         var result = null;
@@ -63,13 +68,20 @@ class Search extends Component {
                         <div>
                             <ul>
                                 <li>
-                                    <span >{data.cityName}</span>
+                                    <span >address: {data.address}</span>
                                     <br></br>
-                                    <span >{data.description}</span>
+                                    <span >description: {data.description}</span>
                                     <br></br>
-                                    <span >{data.name}</span>
+                                    <span >mail: {data.mail}</span>
                                     <br></br>
-                                    <span >{data.phoneNumber}</span>
+                                    <span >name: {data.name}</span>
+                                    <br></br>
+                                    <span >open_hours: {data.open_hours}</span>
+                                    <br></br>
+                                    <span>Closed<br></br>Tuesday: 11:00-21:00<br></br></span>
+                                    <span >park_image: {data.park_image}</span>
+                                    <br></br>
+                                    <span >phoneNumber: {data.phoneNumber}</span>
                                     <br></br>
                                 </li>
                             </ul>
@@ -78,11 +90,17 @@ class Search extends Component {
                 );
             });
         }
+        else if (searchList.length === 0) {
+            return (
+                <p>Not Found</p>
+            );
+        }
         return result;
     }
 
 
     render() {
+        // console.log(this.props.myTasks);
         const { txtParkName, searchList } = this.state;
         return (
             <Container fluid>
@@ -108,4 +126,19 @@ class Search extends Component {
     }
 }
 
-export default withTranslation()(Search);
+const mapStateToProps = state => {
+    return {
+        searchName: state.Park,
+    }
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchNamePark : (name) => {
+            dispatch(actNameP(name))
+        }
+    }
+}
+
+// export default withTranslation()(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

@@ -70,11 +70,13 @@ class Register extends Component {
       visibility: !this.state.visibility
     });
   }
+
   componentDidMount() {
     if (this.props.txtPasswordRegister) {
       this.setState({ txtPasswordRegister: this.props.txtPasswordRegister });
     }
   }
+  
   render() {
     var { validated, txtNameRegister,
       txtPasswordRegister, txtMailRegister } = this.state;

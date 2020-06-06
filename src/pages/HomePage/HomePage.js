@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
-import Header from '../../components/Header/Header';
 import { Container, Row, Col } from 'react-bootstrap'
-import Body from '../../components/Body/Body';
 import Search from '../Search/Search';
 class HomePage extends Component {
     render() {

@@ -1,0 +1,4 @@
+export const SUBMIT_FORM_LOGIN = 'SUBMIT_FORM_LOGIN';
+export const LIST_ALL_PARK = 'LIST_ALL_PARK';
+export const FETCH_PARK = 'FETCH_PARK';
+export const SEARCH_PARK_BY_NAME = 'SEARCH_PARK_BY_NAME';

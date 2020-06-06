@@ -23,7 +23,6 @@ class App extends Component {
                     <div className="container">
                         <div className="row">
                             {this.showContentMenus(routes)}
-                            <Button variant="secondary">Primary</Button>
                         </div>
                     </div>
                 </div>

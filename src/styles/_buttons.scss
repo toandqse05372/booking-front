@@ -67,20 +67,21 @@
 }
 
 #dropbtn{
-    width: 220px;
+    width: 70px;
     height: 22px;
     left: 1249px;
     top: 37px;
-    font-family: sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
     text-align: center;
-    color: #5B5B5B;
-    margin: 0.5em 0.5em;
+}
+
+
+#boxSizing:hover{
+    background-color: #FF7062;
+    
 }
 
 #boxSizing {
-    box-sizing: fit;
+    margin: 0em 0em 0em 0em;
+    padding: 1em;
 }
+

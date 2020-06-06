@@ -47,6 +47,14 @@ const menus = [
         trans: 'tRegister',
         id: 'registerbtn'
     },
+    {
+        name: 'name',
+        to: '/listParkSearched',
+        exact: false,
+        icon: 'shopping-cart',
+        trans: 'tCart',
+        id: 'cartbtn'
+    },
 
     // {
     //     name: 'Register with validation',
@@ -61,13 +69,11 @@ const menus = [
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
-
     return (
         <Route
             path={to}
             exact={activeOnlyWhenExact}
             children={({ match }) => {
-
                 var active = match ? 'active' : '';
                 return (
                     <li className={active}>
@@ -76,7 +82,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
                             to={to}>
                             <FontAwesomeIcon icon={icon} />
                             {' '}
-                            {label} 
+                            {label}
                         </Link>
                         {/* <Nav.Link href={to}>
                             {label}
@@ -135,24 +141,31 @@ class Menu2 extends Component {
         // {t('Password.1')}
         var { dropTrans } = this.state;
         return (
-            <Navbar className="fixed" bg="white" variant="light" expand="lg">
-                <Navbar.Brand href="/">
-                    <img
-                        alt=""
-                        src="/logo192.png"
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                    />
-                    Goboki
+            <Navbar
+                sticky="top"
+                bg="white"
+                variant="light"
+                expand="lg">
+                <Link to = '/'>
+                    <Navbar.Brand >
+                        <img
+                            alt="NOT FOUND"
+                            src="/logo192.png"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+
+                        />
                     </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
                         {dropTrans.map((data, index) => {
                             return (
-                                <NavDropdown id="dropbtn"
+                                <NavDropdown className="dropbtn"
                                     // title = {nameDropDown}
+
                                     key={data.nameDropDown}
                                     title={<ReactCountryFlag
                                         countryCode={data.countryCode}
@@ -163,20 +176,21 @@ class Menu2 extends Component {
                                         }}
                                         title="US"
                                     />}
-                                    id="basic-nav-dropdown">
+                                // id="basic-nav-dropdown"
+                                >
                                     <NavDropdown.Item id="boxSizing"
                                         // href="#action/3.1"
                                         onClick={() => this.handleClick('en', 'US')} >
                                         <ReactCountryFlag countryCode="US" svg /> English(US)
                                     </NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item
+                                    {/* <NavDropdown.Divider /> */}
+                                    <NavDropdown.Item id="boxSizing"
                                         // href="#action/3.2"
                                         onClick={() => this.handleClick('jap', 'JP')}>
                                         <ReactCountryFlag countryCode="JP" svg /> Japanese
                                     </NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item
+                                    {/* <NavDropdown.Divider /> */}
+                                    <NavDropdown.Item id="boxSizing"
                                         onClick={() => this.handleClick('vi', 'VN')}>
                                         <ReactCountryFlag countryCode="VN" svg /> Vietnamese
                                     </NavDropdown.Item>
@@ -219,7 +233,6 @@ class Menu2 extends Component {
             result = theMenus.map((menu, index) => {
                 const nameTrans = this.hmm(menu.trans);
                 return (
-
                     <MenuLink
                         id={menu.id}
                         key={index}
