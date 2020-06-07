@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
 import './lol.css'
+import { Link } from "react-router-dom";
+import { getParkID } from './../../actions/index';
+
 
 class ParkListSearched extends Component {
     constructor(props) {
@@ -18,6 +21,13 @@ class ParkListSearched extends Component {
             totalItems: 0
         }
     }
+    // onGetParkID(id){
+    //     this.props.fetchParkIdToStore(id)
+    // }
+
+    // fetchParkIdToStore = (id) =>{
+    //     this.props.fetchParkID(id)
+    // }
 
     //render list by "searched list"
     showSearchList = (searchList) => {
@@ -27,27 +37,38 @@ class ParkListSearched extends Component {
                 return (
                     //specifire key for each data
                     <div key={data.id}>
-                        <div>
-                            <ul>
-                                <li>
-                                    <span >address: {data.address}</span>
-                                    <br></br>
-                                    <span >description: {data.description}</span>
-                                    <br></br>
-                                    <span >mail: {data.mail}</span>
-                                    <br></br>
-                                    <span >name: {data.name}</span>
-                                    <br></br>
-                                    <span >open_hours: {data.open_hours}</span>
-                                    <br></br>
-                                    <span>Closed<br></br>Tuesday: 11:00-21:00<br></br></span>
-                                    <span >park_image: {data.park_image}</span>
-                                    <br></br>
-                                    <span >phoneNumber: {data.phoneNumber}</span>
-                                    <br></br>
-                                </li>
-                            </ul>
-                        </div>
+                        <Link to="/ParkDetail">
+
+                            <div>
+                                <ul>
+                                    <button
+                                        // onClick={this.onGetParkID(data.id)}
+                                    >
+                                        <li>
+                                            <span >address: {data.address}</span>
+                                            <br></br>
+                                            <span >id: {data.id}</span>
+                                            <br></br>
+                                            <span >description: {data.description}</span>
+                                            <br></br>
+                                            <span >mail: {data.mail}</span>
+                                            <br></br>
+                                            <span >name: {data.name}</span>
+                                            <br></br>
+                                            <span >open_hours: {data.open_hours}</span>
+                                            <br></br>
+                                            <span>Closed<br></br>Tuesday: 11:00-21:00<br></br></span>
+                                            <span >park_image: {data.park_image}</span>
+                                            <br></br>
+                                            <span >phoneNumber: {data.phoneNumber}</span>
+                                            <br></br>
+                                        </li>
+                                    </button>
+                                </ul>
+
+                            </div>
+
+                        </Link>
                     </div>
                 );
             });
@@ -130,5 +151,13 @@ const mapStateToProps = state => {
         searchName: state.Park,
     }
 };
+
+// const mapDispatchToProps = (dispatch, props) => {
+//     return {
+//         fetchParkID: (id) => {
+//             dispatch(getParkID(id))
+//         }
+//     }
+// }
 
 export default connect(mapStateToProps, null)(ParkListSearched);

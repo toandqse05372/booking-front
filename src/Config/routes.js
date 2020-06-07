@@ -1,10 +1,11 @@
 import React from 'react';
 import LoginPage from './../pages/login/LoginPage';
-import HomePage from './../pages/HomePage/HomePage';
 import Register from './../pages/login/Register';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import ParkList from '../pages/ParkList/ParkList';
 import ParkListSearched from '../pages/ParkListSearched/ParkListSearched';
+import HomePage from '../pages/HomePage/HomePage/HomePage';
+import ParkDetail from '../pages/Detail/ParkDetail/ParkDetail';
 
 
 const routers = [
@@ -34,9 +35,20 @@ const routers = [
         main: ({ history }) => <ParkListSearched history={history} />
     },
     {
+        path: '/ParkDetail',
+        exact: false,
+        main: ({ history }) => <ParkDetail history={history} />
+    },
+    {
         path: '/',
         exact: true,
         main: () => <HomePage />  //component tuong ung
+    }
+    ,
+    {
+        path: '',
+        exact: true,
+        main: () => <NotFoundPage />  //component tuong ung
     }
 ];
 export default routers;

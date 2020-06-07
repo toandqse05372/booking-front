@@ -7,6 +7,7 @@ import axios from 'axios';
 export const actFetchlistAllParkRequest = () => {
     return (dispatch) => {
         return callApi('parks', 'GET', null).then(res => {
+            // console.log(res.data);
             dispatch(actFetchlistAllPark(res.data))
         });
     };
@@ -26,16 +27,9 @@ export const actNameP = (nameP) => {
     }
 }
 
-// export const actNamePListAll = (nameP) => {
-//     return (dispatch) => {
-//         return axios.get('http://localhost:8090/park/searchName', {
-//             params: {
-//                 name: dispatch(actNameP(nameP)),
-//                 page: 1,
-//                 limit: 10,
-//             }
-//         }).then(res => {
-
-//         })
-//     };
-// }
+export const getParkID = (id) => {
+    return {
+        type: types.GET_PARK_ID,
+        id
+    }
+}

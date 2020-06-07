@@ -11,12 +11,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const menus = [
-    // {
-    //     name: 'Trang chu',
-    //     to: '/',
-    //     exact: true
-    // },
-
     {
         name: 'Đặt chỗ của tôi',
         to: '/NotFound',
@@ -65,9 +59,6 @@ const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
                             {' '}
                             {label}
                         </Link>
-                        {/* <Nav.Link href={to}>
-                            {label}
-                        </Nav.Link> */}
                     </li>
 
                 );
@@ -182,8 +173,10 @@ class Menu2 extends Component {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            
         );
     }
+
 
     hmm = (trans) => {
         const { t } = this.props;
