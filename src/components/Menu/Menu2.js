@@ -15,7 +15,7 @@ const menus = [
         name: 'Đặt chỗ của tôi',
         to: '/NotFound',
         exact: false,
-        icon: 'file-alt',
+        // icon: 'file-alt',
         trans: 'tBook',
         id: 'bookbtn'
     },
@@ -23,7 +23,7 @@ const menus = [
         name: 'Giỏ hàng',
         to: '/NotFound',
         exact: false,
-        icon: 'shopping-cart',
+        // icon: 'shopping-cart',
         trans: 'tCart',
         id: 'cartbtn'
     },
@@ -43,7 +43,9 @@ const menus = [
     }
 ];
 
-const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
+// const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
+    
+const MenuLink = ({ label, to, activeOnlyWhenExact,  id }) => {
     return (
         <Route
             path={to}
@@ -55,7 +57,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
                         <Link className="nav-link"
                             id={id}
                             to={to}>
-                            <FontAwesomeIcon icon={icon} />
+                            {/* <FontAwesomeIcon icon={icon} /> */}
                             {' '}
                             {label}
                         </Link>
@@ -76,10 +78,10 @@ class Menu2 extends Component {
                     nameDropDown: 'en',
                     countryCode: 'US'
                 }
-            ]
-
+            ],
         }
     }
+
     handleClick(lang, countryCode) {
         i18next.changeLanguage(lang)
         var dropTrans = [
@@ -95,22 +97,18 @@ class Menu2 extends Component {
     }
 
     componentWillMount() {
-        var dropTrans = JSON.parse(localStorage.getItem('dropTrans'));
-        this.setState({
-            dropTrans: dropTrans
-        });
+        // const { test } = this.state;
+        // localStorage.setItem('dropTrans', JSON.stringify(test));
+
+        // var dropTrans = JSON.parse(localStorage.getItem('dropTrans'));
+        // console.log(dropTrans);
+        // this.setState({
+        //     dropTrans: dropTrans
+        // });
     }
 
-    // componentDidMount = (lang, countryCode) => {
-    //     this.setState({
-    //         nameDropDown: 'en',
-    //         countryCode: 'US'
-    //     });
-    // }
 
     render() {
-        // const { t } = this.props;
-        // {t('Password.1')}
         var { dropTrans } = this.state;
         return (
             <Navbar
@@ -118,7 +116,7 @@ class Menu2 extends Component {
                 bg="white"
                 variant="light"
                 expand="lg">
-                <Link to = '/'>
+                <Link to='/'>
                     <Navbar.Brand >
                         <img
                             alt="NOT FOUND"
@@ -173,10 +171,44 @@ class Menu2 extends Component {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            
         );
     }
 
+    // render() {
+    //     return (
+    //         <nav className="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+    //             <div className="container">
+                    
+    //                 <a className="navbar-brand" href="/#">Goboki</a>
+                    
+    //                 <button className="navbar-toggler" type="button" 
+    //                 data-toggle="collapse" data-target="#navbarResponsive" 
+    //                 aria-controls="navbarResponsive" aria-expanded="false" 
+    //                 aria-label="Toggle navigation">
+    //                     <span className="navbar-toggler-icon"></span>
+    //                 </button>
+    //                 <div className="collapse navbar-collapse" id="navbarResponsive">
+    //                     <ul className="navbar-nav ml-auto">
+    //                         <li className="nav-item active">
+    //                             <a className="nav-link" href="/#">Home
+                            
+    //                             </a>
+    //                         </li>
+    //                         <li className="nav-item">
+    //                             <a className="nav-link" href="/#">About</a>
+    //                         </li>
+    //                         <li className="nav-item">
+    //                             <a className="nav-link" href="/#">Services</a>
+    //                         </li>
+    //                         <li className="nav-item">
+    //                             <a className="nav-link" href="/#">Contact</a>
+    //                         </li>
+    //                     </ul>
+    //                 </div>
+    //             </div>
+    //         </nav>
+    //     )
+    // }
 
     hmm = (trans) => {
         const { t } = this.props;
@@ -201,8 +233,6 @@ class Menu2 extends Component {
 
     showMenus = (theMenus) => {
         var result = null;
-        // var pass = t('password.1');
-
         if (theMenus.length > 0) {
             result = theMenus.map((menu, index) => {
                 const nameTrans = this.hmm(menu.trans);
@@ -213,7 +243,7 @@ class Menu2 extends Component {
                         label={nameTrans}
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
-                        icon={menu.icon}
+                        // icon={menu.icon}
                     />
                 );
             });

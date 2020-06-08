@@ -6,14 +6,32 @@ import Banner from '../Banner/Banner';
 import './style.css'
 import Search from '../../../components/Search/Search';
 class HomePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tokenLoginGot: ''
+        }
+    }
+
+    componentWillMount() {
+        var tokenLogin = JSON.parse(localStorage.getItem('tokenLogin'));
+        this.setState({
+            tokenLoginGot: tokenLogin
+        })
+        console.log("Lmao: "+tokenLogin);
+    }
+
     render() {
         const { t } = this.props;
+        const {tokenLoginGot} = this.state;
         return (
             <div>
                 <Banner />
+                {tokenLoginGot}
                 {/* <Row no-gutters md={12}>
                     <Col> <Search /> </Col>
                 </Row> */}
+                <Banner />
             </div>
         );
     }

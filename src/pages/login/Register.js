@@ -31,7 +31,7 @@ class Register extends Component {
   onClickRegister = (e) => {
     e.preventDefault();
     var { txtNameRegister, txtPasswordRegister, txtMailRegister } = this.state;
-    // var { history } = this.props;
+    var { history } = this.props;
 
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -39,22 +39,23 @@ class Register extends Component {
       e.preventDefault();
       e.stopPropagation();
     } else {
-      callApi('register', 'POST', {
+      callApi('user/register', 'POST', {
         username: txtNameRegister,
         password: txtPasswordRegister,
-        email: txtMailRegister,
+        mail: txtMailRegister,
+        // phoneNumber: '0382726111'
       }).then(res => {
         console.log(res);
-        // alert("Register Success");
-        // history.push("/login");
+        alert("Register Success");
+        history.push("/login");
       }).catch(function (myError) {
         if (myError.response) {
           // Request made and server responded
           console.log(myError.response);
-          // if (error.response.data) {
-          //     alert("The username or password is incorrect");
-          // }
-          //   history.push("/");
+          if (myError.response.data) {
+              alert("The username or password is incorrect");
+          }
+            history.push("/register");
         }
       });
     }
@@ -85,13 +86,13 @@ class Register extends Component {
     return (
       <Form noValidate validated={validated} onSubmit={this.onClickRegister}>
         <Form.Row>
-          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-            <Form.Label>{t('UserName.1')}</Form.Label>
-            <InputGroup>
+          {/* <Form.Group as={Col} md="4" controlId="validationCustomUsername"> */}
+            {/* <Form.Label>{t('UserName.1')}</Form.Label>
+            <InputGroup> */}
               {/* <InputGroup.Prepend>
                     <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
                   </InputGroup.Prepend> */}
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 placeholder={t('UserName.1')}
                 aria-describedby="inputGroupPrepend"
@@ -103,8 +104,8 @@ class Register extends Component {
               <Form.Control.Feedback type="invalid">
                 Please choose a username.
                     </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
+            </InputGroup> */}
+          {/* </Form.Group> */}
 
           <Form.Group as={Col} md="4">
             <Form.Label>{t('Password.1')}</Form.Label>
@@ -126,10 +127,10 @@ class Register extends Component {
 
             />
             <Form.Control.Feedback className="form-control-feedback" type="valid">
-              Look nice.
+              ok ban oi.
                     </Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
-              look vcl.
+              sai roi ban oi.
                     </Form.Control.Feedback>
           </Form.Group>
           {/* <Form.Group as={Col} md="4" controlId="validationCustom02">
@@ -157,7 +158,7 @@ class Register extends Component {
               onChange={this.onChange}
             />
             <Form.Control.Feedback type="invalid">
-              Please provide a valid city.
+              Please provide a valid email.
                   <i className="fas fa-eye"></i>
               <i className="fas fa-camera"></i>
             </Form.Control.Feedback>

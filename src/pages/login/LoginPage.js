@@ -54,10 +54,11 @@ class LoginPage extends Component {
             var { txtName, txtPassword } = this.state;
             var { history } = this.props;
             callApi('login', 'POST', {
-                username: txtName,
+                mail: txtName,
                 password: txtPassword,
             }).then(res => {
-                console.log(res);
+                console.log(res.data);
+                localStorage.setItem('tokenLogin', JSON.stringify(res.data));
                 history.push("/");
             }).catch(function (error) {
                 if (error.response) {
@@ -66,8 +67,7 @@ class LoginPage extends Component {
                     if (error.response.data.toString() === 'WRONG_USERNAME_PASSWORD') {
                         alert(t('Error.WRONG_USERNAME_PASSWORD'));
                     }
-                    //   history.push("/");
-
+                    history.push("/login");
                 }
             });
         }
@@ -76,12 +76,9 @@ class LoginPage extends Component {
         })
     }
 
-    // handleClick(lang, countryCode) {
-    //     i18next.changeLanguage(lang)
-    //     // this.setState({
-    //     //     nameDropDown: lang,
-    //     //     countryCode: countryCode
-    //     // });
+    // componentDidMount(){
+    //     const {tokenLogin} = this.state;
+    //     localStorage.setItem('tokenLogin', JSON.stringify(tokenLogin));
     // }
 
     render() {
@@ -125,7 +122,7 @@ class LoginPage extends Component {
                         <Form.Control
                             onChange={this.onChange}
                             required
-                            pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,}$"
+                            // pattern="^(?!.* )(?=.*\d)(?=.*[A-Z]).{8,}$"
                             type={this.state.hidden ? "password" : "text"}
                             placeholder={t('Password.1')}
                             name="txtPassword"
