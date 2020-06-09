@@ -6,6 +6,7 @@ import ParkList from '../pages/ParkList/ParkList';
 import ParkListSearched from '../pages/ParkListSearched/ParkListSearched';
 import HomePage from '../pages/HomePage/HomePage/HomePage';
 import ParkDetail from '../pages/Detail/ParkDetail/ParkDetail';
+import Payment from '../pages/Payment/Payment';
 
 
 const routers = [
@@ -43,12 +44,16 @@ const routers = [
         path: '/',
         exact: true,
         main: () => <HomePage />  //component tuong ung
-    }
-    ,
+    },
+    {
+        path: '/payment',
+        exact: true,
+        main: () => <Payment />  
+    },
     {
         path: '',
         exact: true,
-        main: () => <NotFoundPage />  //component tuong ung
+        main: () => <NotFoundPage />  
     }
 ];
 export default routers;
