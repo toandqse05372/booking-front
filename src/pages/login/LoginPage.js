@@ -5,7 +5,10 @@ import { withTranslation } from 'react-i18next';
 // import {Link} from 'react-router-dom';
 import Facebook from './Facebook';
 import { Form, InputGroup, Button, Col } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { connect } from 'react-redux';
+import { getUserLogin } from './../../actions/index';
 
 class LoginPage extends Component {
 
@@ -22,14 +25,17 @@ class LoginPage extends Component {
             hidden: true,
             visibility: false,
             validated: false,
+            userLogin: {
+
+            },
         }
     }
     toggleShow = () => {
         this.setState({
-          hidden: !this.state.hidden,
-          visibility: !this.state.visibility
+            hidden: !this.state.hidden,
+            visibility: !this.state.visibility
         });
-      }
+    }
 
     onChange = (e) => {
         var target = e.target;
@@ -40,15 +46,21 @@ class LoginPage extends Component {
         })
     }
 
+    fetchUserDetailF = () => {
+        const { userLogin } = this.state;
+    
+        this.props.fetchUserDetail(userLogin)
+        console.log(userLogin);
+    }
 
     //sent name & password to server
     onClickLogin = (e) => {
         const form = e.currentTarget;
         if (form.checkValidity() === false) {
-            console.log("1")
             e.preventDefault();
             e.stopPropagation();
         } else {
+            var jwtDecode = require('jwt-decode');
             e.preventDefault();
             const { t } = this.props;
             var { txtName, txtPassword } = this.state;
@@ -59,6 +71,22 @@ class LoginPage extends Component {
             }).then(res => {
                 console.log(res.data);
                 localStorage.setItem('tokenLogin', JSON.stringify(res.data));
+                var decoded = jwtDecode(res.data);
+                this.props.fetchUserDetail(decoded.user);
+                // this.setState({
+                //     userLogin: decoded.user
+                // })
+
+                console.log(decoded);
+                // console.log(decoded.user);
+                // console.log(decoded.user.firstName);
+                // console.log(decoded.user.lastName);
+                // console.log(decoded.user.mail);
+                // console.log(decoded.user.password);
+                // console.log(decoded.user.userId);
+
+                // this.fetchUserDetailF();
+
                 history.push("/");
             }).catch(function (error) {
                 if (error.response) {
@@ -86,8 +114,16 @@ class LoginPage extends Component {
         // var { txtName, txtPassword, nameDropDown, countryCode } = this.state;
         var { txtName, txtPassword,
             validated } = this.state;
+        const tokenLogin = localStorage.getItem('tokenLogin');
+        // console.log(location);
+        if (tokenLogin !== null) {
+            return <Redirect to={{
+                pathname: '/',
+            }} />
+        }
 
         return (
+
             <Form noValidate validated={validated} onSubmit={this.onClickLogin}>
                 <Form.Row>
                     <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -128,7 +164,7 @@ class LoginPage extends Component {
                             name="txtPassword"
                             value={txtPassword}
                         />
-                        
+
                         <Form.Control.Feedback className="form-control-feedback" type="valid">
                             Look nice.
                     </Form.Control.Feedback>
@@ -139,44 +175,18 @@ class LoginPage extends Component {
                 </Form.Row>
                 <Button type="submit">{t('Login.1')}</Button>
             </Form>
-            // <div >
-
-            //     {/* login form */}
-            //     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
-            //         <form onSubmit={this.onClickLogin} >
-            //             <div className="form-group">
-
-            //                 <label >{t('UserName.1')} </label>
-            //                 <input
-            //                     type="text"
-            //                     className="form-control"
-            //                     name="txtName"
-            //                     value={txtName}
-            //                     onChange={this.onChange}
-            //                 />
-            //             </div>
-            //             <div className="form-group">
-            //                 <label >{t('Password.1')} </label>
-            //                 <input
-            //                     type="password"
-            //                     className="form-control"
-            //                     name="txtPassword"
-            //                     value={txtPassword}
-            //                     onChange={this.onChange}
-            //                 />
-            //             </div>
-            //             <button
-            //                 type="submit"
-            //                 className="btn btn-primary">
-            //                 {t('Login.1')}
-            //             </button>
-            //             <Facebook />
-            //         </form>
-            //     </div>
-            // </div >
         );
     }
 
 }
 
-export default withTranslation()(LoginPage);
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchUserDetail: (user) => {
+            dispatch(getUserLogin(user))
+        }
+    }
+}
+
+// export default withTranslation()(LoginPage);
+export default connect(null, mapDispatchToProps)(withTranslation()(LoginPage));

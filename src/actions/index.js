@@ -33,3 +33,10 @@ export const getParkID = (id) => {
         id
     }
 }
+
+export const getUserLogin = (user) => {
+    return {
+        type: types.GET_USER_LOGIN,
+        user
+    }
+}

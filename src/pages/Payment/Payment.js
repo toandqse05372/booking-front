@@ -25,6 +25,7 @@ class Payment extends Component {
         callApi('login', 'POST', {
             token,
         }).then(res => {
+            console.log(res.token.card.id);
         }).catch(function (error) {
             if (error.response) {
             }

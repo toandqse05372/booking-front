@@ -17,17 +17,17 @@ class ParkListSearched extends Component {
             activePage: 1,
             totalPage: 1,
             testList: [],
-            count: 0,
-            totalItems: 0
+            totalItems: 0,
         }
     }
-    // onGetParkID(id){
-    //     this.props.fetchParkIdToStore(id)
-    // }
+    onGetParkID(id){
+        console.log('nanikore');
+        this.fetchParkIdToStore(id);
+    }
 
-    // fetchParkIdToStore = (id) =>{
-    //     this.props.fetchParkID(id)
-    // }
+    fetchParkIdToStore = (id) =>{
+        this.props.fetchParkID(id)
+    }
 
     //render list by "searched list"
     showSearchList = (searchList) => {
@@ -38,12 +38,9 @@ class ParkListSearched extends Component {
                     //specifire key for each data
                     <div key={data.id}>
                         <Link to="/ParkDetail">
-
                             <div>
                                 <ul>
-                                    <button
-                                        // onClick={this.onGetParkID(data.id)}
-                                    >
+                                <button onClick={() => this.onGetParkID(data.id)}>X</button>
                                         <li>
                                             <span >address: {data.address}</span>
                                             <br></br>
@@ -63,7 +60,7 @@ class ParkListSearched extends Component {
                                             <span >phoneNumber: {data.phoneNumber}</span>
                                             <br></br>
                                         </li>
-                                    </button>
+                                   
                                 </ul>
 
                             </div>
@@ -83,7 +80,7 @@ class ParkListSearched extends Component {
 
     //received data from API
     receivedData(searchName) {
-        const { activePage, totalItems } = this.state;
+        const { activePage } = this.state;
         axios.get('http://localhost:8090/park/searchName', {
             params: {
                 //park name
@@ -152,12 +149,12 @@ const mapStateToProps = state => {
     }
 };
 
-// const mapDispatchToProps = (dispatch, props) => {
-//     return {
-//         fetchParkID: (id) => {
-//             dispatch(getParkID(id))
-//         }
-//     }
-// }
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        fetchParkID: (id) => {
+            dispatch(getParkID(id))
+        }
+    }
+}
 
-export default connect(mapStateToProps, null)(ParkListSearched);
+export default connect(mapStateToProps, mapDispatchToProps)(ParkListSearched);
