@@ -69,7 +69,7 @@ class LoginPage extends Component {
                 mail: txtName,
                 password: txtPassword,
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 localStorage.setItem('tokenLogin', JSON.stringify(res.data));
                 var decoded = jwtDecode(res.data);
                 this.props.fetchUserDetail(decoded.user);

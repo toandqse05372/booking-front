@@ -49,7 +49,7 @@ const routers = [
     {
         path: '/payment',
         exact: true,
-        main: () => <Payment />  
+        main: ({ history,location }) => <Payment history={history} location={location} />  
     },
     {
         path: '/BookingPage2',

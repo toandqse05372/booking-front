@@ -1,29 +1,17 @@
 import React, { Component } from 'react';
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import * as paymentKey from './../../constants/paymentKey';
-import MyCheckoutForm from './MyCheckoutForm';
-import StripeCheckout from 'react-stripe-checkout';
 import callApi from "../../utils/apiCaller";
 import './another.css';
-import Payment from './Payment';
 import { Link } from 'react-router-dom';
 
 class AnotherOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ticket: ({
-        parkName: "halon",
-        parkTime: "kind of time",
-        parkId: "1",
-        parkPrice: "200$"
-      }),
       listResult: [],
     }
   }
 
-  async handleToken(token) {
+  // async handleToken(token) {
     // const { ticket } = this.state;
     // console.log({ token });
     //  await callApi('payment', 'POST', {
@@ -36,11 +24,11 @@ class AnotherOne extends Component {
     //     if (error.response) {
     //     }
     // });
-  }
+  // }
 
+  //Get all Ticket Type by API
   componentWillMount = () => {
     callApi('ticketType', 'GET', null).then(res => {
-      console.log(res.data);
       this.setState({
         listResult: res.data
       })
@@ -51,51 +39,19 @@ class AnotherOne extends Component {
     });
   }
 
-  myOnClick = (id) => {
-    console.log(id);
-  }
-
+  //show Ticket funtion
   showTicketTypeList = (TicketList) => {
     var result = null;
-
-    const {match} = this.props;
-    // console.log(match);
-    var url = match.url;
-
     if (TicketList.length > 0) {
+      //by map funtion
       result = TicketList.map((data, index) => {
         return (
-          //specifire key for each data
-          // <div key={data.id}>
-          //     <div>
-          //         <ul>
-          //             <li>
-          //                 <span >id: {data.id}</span>
-          //                 <br></br>
-          //                 <span >typeName: {data.typeName}</span>
-          //                 <br></br>
-          //                 <span >effectiveTime: {data.effectiveTime}</span>
-          //                 <br></br>
-          //                 <span >redemptionDate: {data.redemptionDate}</span>
-          //                 <br></br>
-          //                 <span >cancelPolicy: {data.cancelPolicy}</span>
-          //                 <br></br>
-          //                 <span >conversionMethod: {data.conversionMethod}</span>
-          //                 <br></br>
-          //                 <span >userObject: {data.userObject}</span>
-          //                 <br></br>
-          //                 <span >price: {data.price}</span>
-          //                 <br></br>
-          //                 <span >gameName: {data.gameName}</span>
-          //                 <br></br>
-          //             </li>
-          //         </ul>
-          //     </div>
-          // </div>
+          //with key is index of each
           <div key={index} id="accordion">
-            
             <div className="card">
-              <div data-toggle="collapse" data-target={"#" + data.id} className="card-header" id="headingOne">
+              <div 
+                  data-toggle="collapse" data-target={"#" + data.id} 
+                  className="card-header" id="headingOne">
                 <h5 className="mb-0">
                   <div className="container">
                     <div className="row">
@@ -105,26 +61,17 @@ class AnotherOne extends Component {
                         </p>
                       </div>
                       <div className="col-2">
-                        <p>
-                          Price: {data.price}
-                        </p>
+                        <p>Price: {data.price}</p>
                       </div>
                       <div className="col">
                         <div
-                          // onClick={this.myOnClick(data.id)}
                           style={{ borderColor: "#FF7062" }} >
-                          {/* <StripeCheckout
-                            
-                            stripeKey={paymentKey.PUBLISHABLE_KEY}
-                            token={this.handleToken}
-                          >
-                          </StripeCheckout> */}
+                            {/* Link to payment page with data is choosed Ticket */}
                           <Link to={{
                                 pathname: "/payment",
-                                data: 'my 1'
+                                data: data
                               }}>
                             <button>Payment
-                              
                             </button>
                           </Link>
                         </div>
@@ -133,7 +80,10 @@ class AnotherOne extends Component {
                   </div>
                 </h5>
               </div>
-              <div id={data.id} className="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              {/* collapsed part */}
+              <div 
+                id={data.id} className="collapse" 
+                aria-labelledby="headingOne" data-parent="#accordion">
                 <div className="card-body">
                   <div className="row">
                     <div className="Col">
@@ -192,57 +142,26 @@ class AnotherOne extends Component {
                   </div>
                 </div>
               </div>
+              {/* End collapse part */}
             </div>
             <br></br>
           </div>
-
         );
       });
     }
     else if (TicketList.length === 0) {
       return (
-        <p>Not Found</p>
+        <p> Not Found </p>
       );
     }
     return result;
   }
 
-
-
-  // handleToken = (token) => {
-  //   const { ticket } = this.state;
-  //   console.log({ token });
-  //   callApi('payment', 'POST', {
-  //     token,
-  //     ticket
-  //   }).then(res => {
-  //     console.log(res.data);
-  //     console.log(res.data.id);
-  //   }).catch(function (error) {
-  //     if (error.response) {
-  //     }
-  //   });
-  // }
-
   render() {
-    const { ticket, parkName, listResult } = this.state;
-    const accordionList = [{ title: 'First Accordion' }, { title: 'Second Accordion' }, { title: 'Third Accordion' }];
+    const { listResult } = this.state;
     return (
-      // <div>
-      //     {/* <StripeCheckout
-      //         stripeKey={paymentKey.PUBLISHABLE_KEY}
-      //         token={this.handleToken}
-      //         amount={ticket.parkPrice * 100}
-      //         name={ticket.parkName}
-      //         billingAddress
-      //         shippingAddress
-      //     /> */}
-      //     <section>
-      //         {this.showTicketTypeList(listResult)}
-      //     </section>
-      // </div>
-
       <div className="container">
+        {/* show ticket list with result get from API */}
         {this.showTicketTypeList(listResult)}
       </div>
     );
