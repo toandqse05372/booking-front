@@ -4,7 +4,6 @@ import * as Config from '../constants/ConfigAPI';
 
 
 export default async function callApi(endpoint, method = 'GET', body) {
-
     return axios({
         method: method,
         url: `${Config.API_URL}/${endpoint}`,

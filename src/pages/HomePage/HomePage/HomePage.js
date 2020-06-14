@@ -13,7 +13,7 @@ class HomePage extends Component {
         this.state = {
             tokenLoginGot: '',
             UserDetailGot: {
-                a:''
+                
             }
         }
     }

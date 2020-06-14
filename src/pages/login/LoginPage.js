@@ -76,7 +76,6 @@ class LoginPage extends Component {
                 // this.setState({
                 //     userLogin: decoded.user
                 // })
-
                 console.log(decoded);
                 // console.log(decoded.user);
                 // console.log(decoded.user.firstName);
@@ -84,9 +83,7 @@ class LoginPage extends Component {
                 // console.log(decoded.user.mail);
                 // console.log(decoded.user.password);
                 // console.log(decoded.user.userId);
-
                 // this.fetchUserDetailF();
-
                 history.push("/");
             }).catch(function (error) {
                 if (error.response) {
@@ -126,7 +123,8 @@ class LoginPage extends Component {
 
             <Form noValidate validated={validated} onSubmit={this.onClickLogin}>
                 <Form.Row>
-                    <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                    <Form.Group as={Col} md="4" 
+                    controlId="validationCustomUsername">
                         <Form.Label>{t('UserName.1')}</Form.Label>
                         <InputGroup>
                             {/* <InputGroup.Prepend>

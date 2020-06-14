@@ -12,6 +12,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const menus = [
     {
+        name: 'Booking Page',
+        to: '/bookingPage2',
+        exact: false,
+        trans: 'tpayment',
+        id: 'bookbtn'
+    },
+    {
         name: 'Đặt chỗ của tôi',
         to: '/NotFound',
         exact: false,
@@ -41,6 +48,7 @@ const menus = [
         trans: 'tRegister',
         id: 'registerbtn'
     }
+    
 ];
 
 // const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
@@ -227,6 +235,9 @@ class Menu2 extends Component {
                 } else
                     if (trans === "tRegister") {
                         return register;
+                    } else
+                    if(trans==="tpayment"){
+                        return "Booking Page"
                     }
         return trans;
     }
