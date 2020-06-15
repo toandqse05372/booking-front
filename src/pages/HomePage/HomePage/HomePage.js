@@ -13,27 +13,32 @@ class HomePage extends Component {
         this.state = {
             tokenLoginGot: '',
             UserDetailGot: {
-                
+            },
+            userLoggedInDetail: {
             }
         }
     }
 
     componentWillMount() {
         var tokenLogin = JSON.parse(localStorage.getItem('tokenLogin'));
+        var userLoggedInDetail = JSON.parse(localStorage.getItem('userLoggedInDetail'));
         this.setState({
             tokenLoginGot: tokenLogin,
-            UserDetailGot: this.props.UserDetail
+            UserDetailGot: this.props.UserDetail,
+            userLoggedInDetail: userLoggedInDetail
         })
-
-        // console.log("Lmao: " + tokenLogin);
     }
 
     render() {
+        const { tokenLoginGot, UserDetailGot, userLoggedInDetail } = this.state;
         const { t } = this.props;
-        const { tokenLoginGot, UserDetailGot } = this.state;
+        // if (condition) {
+                    
+        // }
         return (
             <div>
-                <p>Welcome{UserDetailGot.firstName}</p>
+                <p>Welcome from localStorage:  {userLoggedInDetail !== null ? userLoggedInDetail.firstName : "Chua dang nhap kia ban oi"} </p>
+                <p>Welcome from store: {UserDetailGot.firstName}</p>
                 <Banner />
                 {tokenLoginGot}
                 

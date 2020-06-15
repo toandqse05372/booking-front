@@ -72,11 +72,14 @@ class LoginPage extends Component {
                 // console.log(res.data);
                 localStorage.setItem('tokenLogin', JSON.stringify(res.data));
                 var decoded = jwtDecode(res.data);
+                //data will be store in localStorage
+                localStorage.setItem('userLoggedInDetail', JSON.stringify(decoded.user));
+                //data will be store in redux store
                 this.props.fetchUserDetail(decoded.user);
                 // this.setState({
                 //     userLogin: decoded.user
                 // })
-                console.log(decoded);
+                // console.log(decoded);
                 // console.log(decoded.user);
                 // console.log(decoded.user.firstName);
                 // console.log(decoded.user.lastName);
