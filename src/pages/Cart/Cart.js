@@ -43,9 +43,10 @@ class Cart extends Component {
 
     // handle submit purchase
     handleToken = (token) => {
+        var stripeToken = token.id;
         const { payDate, mail, name, totalPayment, methodKey } = this.state;
         callApi('payment', 'POST', {
-            token,
+            stripeToken,
             payDate,
             mail,
             name,
