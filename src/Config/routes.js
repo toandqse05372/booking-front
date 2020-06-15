@@ -8,6 +8,7 @@ import HomePage from '../pages/HomePage/HomePage/HomePage';
 import ParkDetail from '../pages/Detail/ParkDetail/ParkDetail';
 import Payment from '../pages/Payment/Payment';
 import AnotherOne from '../pages/Payment/AnotherOne';
+import Cart from '../pages/Cart/Cart';
 
 
 const routers = [
@@ -55,6 +56,11 @@ const routers = [
         path: '/BookingPage2',
         exact: true,
         main: () => <AnotherOne />  
+    },
+    {
+        path: '/Cart',
+        exact: true,
+        main: () => <Cart />  
     },
     {
         path: '',

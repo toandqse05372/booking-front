@@ -14,33 +14,32 @@ class Payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-                payDate: new Date().toLocaleString(),
-                mail: '',
-                name: '',
-                totalPayment: '',
-                methodKey: 'stripe'
-            
+            payDate: new Date().toLocaleString(),
+            mail: '',
+            name: '',
+            totalPayment: '',
+            methodKey: 'stripe'
         }
     }
 
     //set data to state for {payDate,mail,name,totalPayment,methodKey}
     componentWillMount = () => {
         const { data } = this.props.location;
-        const {UserDetail} = this.props;
+        const { UserDetail } = this.props;
         // console.log(data.price );
         // console.log(UserDetail);
         // console.log(UserDetail.firstName + UserDetail.lastName);
         this.setState({
-                mail: UserDetail.mail,//From store of redux
-                name: UserDetail.firstName + UserDetail.lastName,//From store of redux
-                totalPayment: data.price,//From location data of prev page
+            mail: UserDetail.mail,//From store of redux
+            name: UserDetail.firstName + UserDetail.lastName,//From store of redux
+            totalPayment: data.price,//From location data of prev page
         })
     }
 
 
     // handle submit purchase
     handleToken = (token) => {
-        const { payDate,mail,name,totalPayment,methodKey } = this.state;
+        const { payDate, mail, name, totalPayment, methodKey } = this.state;
         // console.log( payDate );
         // console.log( mail );
         // console.log( name );
@@ -87,10 +86,10 @@ class Payment extends Component {
                 <StripeCheckout
                     stripeKey={paymentKey.PUBLISHABLE_KEY}
                     token={this.handleToken}
-                    // amount={ticket.parkPrice * 100}
-                    // name={ticket.parkName}
-                    // billingAddress
-                    // shippingAddress
+                // amount={ticket.parkPrice * 100}
+                // name={ticket.parkName}
+                // billingAddress
+                // shippingAddress
                 />
             </div>
         );

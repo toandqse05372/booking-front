@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import callApi from "../../utils/apiCaller";
 import './another.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actAddToCart } from '../../actions/index';
 
 class AnotherOne extends Component {
   constructor(props) {
@@ -12,18 +14,18 @@ class AnotherOne extends Component {
   }
 
   // async handleToken(token) {
-    // const { ticket } = this.state;
-    // console.log({ token });
-    //  await callApi('payment', 'POST', {
-    //     token,
-    //     ticket
-    // }).then(res => {
-    //     console.log(res.data);
-    //     console.log(res.data.id);
-    // }).catch(function (error) {
-    //     if (error.response) {
-    //     }
-    // });
+  // const { ticket } = this.state;
+  // console.log({ token });
+  //  await callApi('payment', 'POST', {
+  //     token,
+  //     ticket
+  // }).then(res => {
+  //     console.log(res.data);
+  //     console.log(res.data.id);
+  // }).catch(function (error) {
+  //     if (error.response) {
+  //     }
+  // });
   // }
 
   //Get all Ticket Type by API
@@ -39,6 +41,10 @@ class AnotherOne extends Component {
     });
   }
 
+  onAddToCartOfProduct = (product) => {
+    this.props.onAddToCartOfPC(product);
+}
+
   //show Ticket funtion
   showTicketTypeList = (TicketList) => {
     var result = null;
@@ -49,9 +55,9 @@ class AnotherOne extends Component {
           //with key is index of each
           <div key={index} id="accordion">
             <div className="card">
-              <div 
-                  data-toggle="collapse" data-target={"#" + data.id} 
-                  className="card-header" id="headingOne">
+              <div
+                data-toggle="collapse" data-target={"#" + data.id}
+                className="card-header" id="headingOne">
                 <h5 className="mb-0">
                   <div className="container">
                     <div className="row">
@@ -66,14 +72,19 @@ class AnotherOne extends Component {
                       <div className="col">
                         <div
                           style={{ borderColor: "#FF7062" }} >
-                            {/* Link to payment page with data is choosed Ticket */}
-                          <Link to={{
+                          {/* Link to payment page with data is choosed Ticket */}
+                          {/* <Link to={{
                                 pathname: "/payment",
                                 data: data
                               }}>
                             <button>Payment
                             </button>
-                          </Link>
+                          </Link> */}
+                          <button
+                          onClick={ () => this.onAddToCartOfProduct(data) }
+                          >
+                            Add to Cart
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -81,13 +92,15 @@ class AnotherOne extends Component {
                 </h5>
               </div>
               {/* collapsed part */}
-              <div 
-                id={data.id} className="collapse" 
+              <div
+                id={data.id} className="collapse"
                 aria-labelledby="headingOne" data-parent="#accordion">
                 <div className="card-body">
                   <div className="row">
                     <div className="Col">
-                      <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <div 
+                      className="nav flex-column nav-pills" id="v-pills-tab" 
+                      role="tablist" aria-orientation="vertical">
                         <a
                           className="nav-link active" id="v-pills-home-tab"
                           data-toggle="pill" href={"#1" + data.id}
@@ -168,4 +181,13 @@ class AnotherOne extends Component {
   }
 }
 
-export default AnotherOne;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onAddToCartOfPC: (product) => {
+      dispatch(actAddToCart(product, 1));
+    },
+  }
+}
+
+// export default AnotherOne;
+export default connect(null, mapDispatchToProps)(AnotherOne);

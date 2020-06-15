@@ -8,7 +8,7 @@ import {
     NavDropdown,
 } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { connect } from 'react-redux';
 
 const menus = [
     {
@@ -28,7 +28,7 @@ const menus = [
     },
     {
         name: 'Giỏ hàng',
-        to: '/NotFound',
+        to: '/cart',
         exact: false,
         // icon: 'shopping-cart',
         trans: 'tCart',
@@ -48,12 +48,12 @@ const menus = [
         trans: 'tRegister',
         id: 'registerbtn'
     }
-    
+
 ];
 
 // const MenuLink = ({ label, to, activeOnlyWhenExact, icon, id }) => {
-    
-const MenuLink = ({ label, to, activeOnlyWhenExact,  id }) => {
+
+const MenuLink = ({ label, to, activeOnlyWhenExact, id }) => {
     return (
         <Route
             path={to}
@@ -114,10 +114,16 @@ class Menu2 extends Component {
         //     dropTrans: dropTrans
         // });
     }
-
+    logOut = () => {
+        localStorage.removeItem('tokenLogin');
+        localStorage.removeItem('USER');
+        window.location.reload();
+        this.props.history.push("/");
+    }
 
     render() {
         var { dropTrans } = this.state;
+        const {UserDetail} = this.props;
         return (
             <Navbar
                 sticky="top"
@@ -139,11 +145,12 @@ class Menu2 extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
+                    <p>Welcome from store: {UserDetail.firstName}</p>
+                        <button onClick={this.logOut}>Logout</button>
                         {dropTrans.map((data, index) => {
                             return (
-                                <NavDropdown className="dropbtn"
-                                    // title = {nameDropDown}
 
+                                <NavDropdown className="dropbtn"
                                     key={data.nameDropDown}
                                     title={<ReactCountryFlag
                                         countryCode={data.countryCode}
@@ -154,7 +161,6 @@ class Menu2 extends Component {
                                         }}
                                         title="US"
                                     />}
-                                // id="basic-nav-dropdown"
                                 >
                                     <NavDropdown.Item id="boxSizing"
                                         // href="#action/3.1"
@@ -182,42 +188,6 @@ class Menu2 extends Component {
         );
     }
 
-    // render() {
-    //     return (
-    //         <nav className="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-    //             <div className="container">
-                    
-    //                 <a className="navbar-brand" href="/#">Goboki</a>
-                    
-    //                 <button className="navbar-toggler" type="button" 
-    //                 data-toggle="collapse" data-target="#navbarResponsive" 
-    //                 aria-controls="navbarResponsive" aria-expanded="false" 
-    //                 aria-label="Toggle navigation">
-    //                     <span className="navbar-toggler-icon"></span>
-    //                 </button>
-    //                 <div className="collapse navbar-collapse" id="navbarResponsive">
-    //                     <ul className="navbar-nav ml-auto">
-    //                         <li className="nav-item active">
-    //                             <a className="nav-link" href="/#">Home
-                            
-    //                             </a>
-    //                         </li>
-    //                         <li className="nav-item">
-    //                             <a className="nav-link" href="/#">About</a>
-    //                         </li>
-    //                         <li className="nav-item">
-    //                             <a className="nav-link" href="/#">Services</a>
-    //                         </li>
-    //                         <li className="nav-item">
-    //                             <a className="nav-link" href="/#">Contact</a>
-    //                         </li>
-    //                     </ul>
-    //                 </div>
-    //             </div>
-    //         </nav>
-    //     )
-    // }
-
     hmm = (trans) => {
         const { t } = this.props;
         const order = t('MyOrder.1');
@@ -236,9 +206,9 @@ class Menu2 extends Component {
                     if (trans === "tRegister") {
                         return register;
                     } else
-                    if(trans==="tpayment"){
-                        return "Booking Page"
-                    }
+                        if (trans === "tpayment") {
+                            return "Booking Page"
+                        }
         return trans;
     }
 
@@ -254,7 +224,7 @@ class Menu2 extends Component {
                         label={nameTrans}
                         to={menu.to}
                         activeOnlyWhenExact={menu.exact}
-                        // icon={menu.icon}
+                    // icon={menu.icon}
                     />
                 );
             });
@@ -264,4 +234,11 @@ class Menu2 extends Component {
 
 }
 
-export default withTranslation()(Menu2);
+const mapStateToProps = state => {
+    return {
+        UserDetail: state.User,
+    }
+};
+
+// export default withTranslation()(Menu2);
+export default connect(mapStateToProps, null)(withTranslation()(Menu2));

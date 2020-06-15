@@ -73,8 +73,6 @@ class LoginPage extends Component {
                 localStorage.setItem('tokenLogin', JSON.stringify(res.data));
                 var decoded = jwtDecode(res.data);
                 //data will be store in localStorage
-                localStorage.setItem('userLoggedInDetail', JSON.stringify(decoded.user));
-                //data will be store in redux store
                 this.props.fetchUserDetail(decoded.user);
                 // this.setState({
                 //     userLogin: decoded.user
@@ -129,10 +127,8 @@ class LoginPage extends Component {
                     <Form.Group as={Col} md="4" 
                     controlId="validationCustomUsername">
                         <Form.Label>{t('UserName.1')}</Form.Label>
+                        <p>test@test.com</p>
                         <InputGroup>
-                            {/* <InputGroup.Prepend>
-                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                  </InputGroup.Prepend> */}
                             <Form.Control
                                 type="text"
                                 placeholder={t('UserName.1')}
@@ -150,6 +146,7 @@ class LoginPage extends Component {
 
                     <Form.Group as={Col} md="4">
                         <Form.Label>{t('Password.1')}</Form.Label>
+                        <p>test</p>
                         &nbsp;
                         {/* <FontAwesomeIcon
                             id="e"

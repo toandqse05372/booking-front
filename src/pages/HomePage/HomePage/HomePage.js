@@ -12,40 +12,28 @@ class HomePage extends Component {
         super(props);
         this.state = {
             tokenLoginGot: '',
-            UserDetailGot: {
-            },
-            userLoggedInDetail: {
-            }
         }
     }
 
     componentWillMount() {
         var tokenLogin = JSON.parse(localStorage.getItem('tokenLogin'));
-        var userLoggedInDetail = JSON.parse(localStorage.getItem('userLoggedInDetail'));
         this.setState({
             tokenLoginGot: tokenLogin,
-            UserDetailGot: this.props.UserDetail,
-            userLoggedInDetail: userLoggedInDetail
         })
     }
 
     render() {
-        const { tokenLoginGot, UserDetailGot, userLoggedInDetail } = this.state;
+        const { tokenLoginGot } = this.state;
+        // const {UserDetail} = this.props;
         const { t } = this.props;
-        // if (condition) {
-                    
-        // }
         return (
             <div>
-                <p>Welcome from localStorage:  {userLoggedInDetail !== null ? userLoggedInDetail.firstName : "Chua dang nhap kia ban oi"} </p>
-                <p>Welcome from store: {UserDetailGot.firstName}</p>
-                <Banner />
+                {/* <p>Welcome from store: {UserDetail.firstName}</p> */}
+                {/* <Banner /> */}
                 {tokenLoginGot}
-                
                 {/* <Row no-gutters md={12}>
                     <Col> <Search /> </Col>
                 </Row> */}
-                <Banner />
             </div>
         );
     }

@@ -12,8 +12,8 @@ class Banner extends Component {
                     <div className="container h-100">
                         <div className="row h-100 align-items-center">
                             <div className="col-12 text-center">
-                                <h1 className="font-weight-dark">Đẹp như người yêu cũ của bạn</h1>
-                                <p className="lead">Chỗ search nè</p>
+                                {/* <h1 className="font-weight-dark">Đẹp như người yêu cũ của bạn</h1> */}
+                                {/* <p className="lead">Chỗ search nè</p> */}
                                 <Search />
                             </div>
                         </div>
