@@ -9,6 +9,8 @@ import ParkDetail from '../pages/Detail/ParkDetail/ParkDetail';
 import Payment from '../pages/Payment/Payment';
 import AnotherOne from '../pages/Payment/AnotherOne';
 import Cart from '../pages/Cart/Cart';
+import Payment2 from '../pages/Payment/Payment2';
+import Payment3 from '../pages/Payment/NewPayment/Payment3';
 
 
 const routers = [
@@ -61,6 +63,16 @@ const routers = [
         path: '/Cart',
         exact: true,
         main: () => <Cart />  
+    },
+    {
+        path: '/payment2',
+        exact: true,
+        main: () => <Payment2 />  
+    },
+    {
+        path: '/newPayment',
+        exact: true,
+        main: () => <Payment3 />  
     },
     {
         path: '',

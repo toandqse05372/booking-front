@@ -4,6 +4,7 @@ import { actAddToCart } from './../../actions/index';
 import * as paymentKey from './../../constants/paymentKey';
 import StripeCheckout from 'react-stripe-checkout';
 import callApi from "../../utils/apiCaller";
+import Payment3 from '../Payment/NewPayment/Payment3';
 
 class Cart extends Component {
 
@@ -43,6 +44,7 @@ class Cart extends Component {
 
     // handle submit purchase
     handleToken = (token) => {
+        console.log(token);
         var stripeToken = token.id;
         const { payDate, mail, name, totalPayment, methodKey } = this.state;
         callApi('payment', 'POST', {
@@ -113,17 +115,17 @@ class Cart extends Component {
                             <strong>{this.showTotalAmout()} $</strong>
                         </h4>
                         {/* tab select payment method start */}
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#home">By Visa</a>
+                        <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                                <a className="nav-link active" data-toggle="tab" href="#home">By Visa</a>
 
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu1">By Momo</a>
+                            <li className="nav-item">
+                                <a className="nav-link" data-toggle="tab" href="#menu1">By Momo</a>
                             </li>
                         </ul>
-                        <div class="tab-content">
-                            <div id="home" class="container tab-pane active"><br></br>
+                        <div className="tab-content">
+                            <div id="home" className="container tab-pane active"><br></br>
                                 <StripeCheckout
                                     stripeKey={paymentKey.PUBLISHABLE_KEY}
                                     token={this.handleToken}
@@ -132,8 +134,11 @@ class Cart extends Component {
                                 // billingAddress
                                 // shippingAddress
                                 />
+                                <Payment3
+                                totalPayment={this.showTotalAmout()}
+                                />
                             </div>
-                            <div id="menu1" class="container tab-pane fade"><br></br>
+                            <div id="menu1" className="container tab-pane fade"><br></br>
                                 <h3>Căm minh sun</h3>
                             </div>
                         </div>
