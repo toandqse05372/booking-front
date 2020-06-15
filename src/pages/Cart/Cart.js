@@ -44,11 +44,6 @@ class Cart extends Component {
     // handle submit purchase
     handleToken = (token) => {
         const { payDate, mail, name, totalPayment, methodKey } = this.state;
-        // console.log(payDate);
-        // console.log(mail);
-        // console.log(name);
-        // console.log(totalPayment);
-        // console.log(methodKey);
         callApi('payment', 'POST', {
             token,
             payDate,
@@ -95,7 +90,7 @@ class Cart extends Component {
         }
         else if (searchList.length === 0) {
             return (
-                <p>Not Found</p>
+                <h1>Hiện tại chưa có Ticket nào</h1>
             );
         }
         return result;

@@ -29,7 +29,7 @@ class HomePage extends Component {
         return (
             <div>
                 {/* <p>Welcome from store: {UserDetail.firstName}</p> */}
-                {/* <Banner /> */}
+                <Banner />
                 {tokenLoginGot}
                 {/* <Row no-gutters md={12}>
                     <Col> <Search /> </Col>

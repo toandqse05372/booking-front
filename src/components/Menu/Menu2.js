@@ -20,20 +20,20 @@ const menus = [
     },
     {
         name: 'Đặt chỗ của tôi',
-        to: '/NotFound',
+        to: '/cart',
         exact: false,
         // icon: 'file-alt',
         trans: 'tBook',
         id: 'bookbtn'
     },
-    {
-        name: 'Giỏ hàng',
-        to: '/cart',
-        exact: false,
-        // icon: 'shopping-cart',
-        trans: 'tCart',
-        id: 'cartbtn'
-    },
+    // {
+    //     name: 'Giỏ hàng',
+    //     to: '/notFound',
+    //     exact: false,
+    //     // icon: 'shopping-cart',
+    //     trans: 'tCart',
+    //     id: 'cartbtn'
+    // },
     {
         name: 'Đăng nhập',
         to: '/login',
@@ -117,13 +117,14 @@ class Menu2 extends Component {
     logOut = () => {
         localStorage.removeItem('tokenLogin');
         localStorage.removeItem('USER');
+        localStorage.removeItem('CART');
         window.location.reload();
-        this.props.history.push("/");
+        // this.props.history.push("/");
     }
 
     render() {
         var { dropTrans } = this.state;
-        const {UserDetail} = this.props;
+        const { UserDetail } = this.props;
         return (
             <Navbar
                 sticky="top"
@@ -142,11 +143,10 @@ class Menu2 extends Component {
                         />
                     </Navbar.Brand>
                 </Link>
+                <span><h1>{UserDetail.firstName}</h1></span>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                    <p>Welcome from store: {UserDetail.firstName}</p>
-                        <button onClick={this.logOut}>Logout</button>
                         {dropTrans.map((data, index) => {
                             return (
 
@@ -182,6 +182,7 @@ class Menu2 extends Component {
                             );
                         })}
                         {this.showMenus(menus)}
+                        <button id="loginbtn" onClick={this.logOut}>Logout</button>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

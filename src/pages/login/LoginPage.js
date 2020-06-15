@@ -69,7 +69,7 @@ class LoginPage extends Component {
                 mail: txtName,
                 password: txtPassword,
             }).then(res => {
-                // console.log(res.data);
+                alert('Đăng nhập thành công');
                 localStorage.setItem('tokenLogin', JSON.stringify(res.data));
                 var decoded = jwtDecode(res.data);
                 //data will be store in localStorage
@@ -121,7 +121,7 @@ class LoginPage extends Component {
         }
 
         return (
-
+            <div className="container">
             <Form noValidate validated={validated} onSubmit={this.onClickLogin}>
                 <Form.Row>
                     <Form.Group as={Col} md="4" 
@@ -147,12 +147,6 @@ class LoginPage extends Component {
                     <Form.Group as={Col} md="4">
                         <Form.Label>{t('Password.1')}</Form.Label>
                         <p>test</p>
-                        &nbsp;
-                        {/* <FontAwesomeIcon
-                            id="e"
-                            icon={this.state.visibility ? "eye-slash" : "eye"}
-                            onClick={this.toggleShow}
-                        /> */}
                         <Form.Control
                             onChange={this.onChange}
                             required
@@ -173,6 +167,7 @@ class LoginPage extends Component {
                 </Form.Row>
                 <Button type="submit">{t('Login.1')}</Button>
             </Form>
+            </div>
         );
     }
 
