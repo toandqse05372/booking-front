@@ -168,8 +168,6 @@ class Register extends Component {
         <Button type="submit">{t('Register.1')}</Button>
       </Form>
 
-
-
     );
   }
 

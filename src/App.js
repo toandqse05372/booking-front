@@ -10,12 +10,14 @@ import Menu2 from './components/Menu/Menu2';
 import './custom.scss';
 import { Col, Container, Row } from 'react-bootstrap'
 import { faEye, faEyeSlash, faShoppingCart, faFileAlt } from '@fortawesome/free-solid-svg-icons'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 library.add(faEye, faEyeSlash, faShoppingCart, faFileAlt)
 
 
 class App extends Component {
     render() {
+        // require('bootstrap') 
         return (
             <Router>
                 {/* <Menu /> */}

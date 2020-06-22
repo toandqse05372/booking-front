@@ -11,6 +11,7 @@ import AnotherOne from '../pages/Payment/AnotherOne';
 import Cart from '../pages/Cart/Cart';
 import Payment2 from '../pages/Payment/Payment2';
 import Payment3 from '../pages/Payment/NewPayment/Payment3';
+import Payment4 from '../pages/Payment/Payment4';
 
 
 const routers = [
@@ -65,9 +66,9 @@ const routers = [
         main: () => <Cart />  
     },
     {
-        path: '/payment2',
+        path: '/payment4',
         exact: true,
-        main: () => <Payment2 />  
+        main: () => <Payment4 />  
     },
     {
         path: '/newPayment',

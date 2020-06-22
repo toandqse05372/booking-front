@@ -126,66 +126,69 @@ class Menu2 extends Component {
         var { dropTrans } = this.state;
         const { UserDetail } = this.props;
         return (
-            <Navbar
-                sticky="top"
-                bg="white"
-                variant="light"
-                expand="lg">
-                <Link to='/'>
-                    <Navbar.Brand >
-                        <img
-                            alt="NOT FOUND"
-                            src="/logo512.png"
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
+            <div>
+                <Navbar
+                    sticky="top"
+                    bg="white"
+                    variant="light"
+                    expand="lg">
+                    <Link to='/'>
+                        <Navbar.Brand >
+                            <img
+                                alt="NOT FOUND"
+                                src="/logo512.png"
+                                width="30"
+                                height="30"
+                                className="d-inline-block align-top"
 
-                        />
-                    </Navbar.Brand>
-                </Link>
-                <span><h1>{UserDetail.firstName}</h1></span>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto">
-                        {dropTrans.map((data, index) => {
-                            return (
+                            />
+                        </Navbar.Brand>
+                    </Link>
+                    <span><h1>{UserDetail.firstName?UserDetail.firstName:UserDetail.name}</h1></span>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ml-auto">
+                            {dropTrans.map((data, index) => {
+                                return (
 
-                                <NavDropdown className="dropbtn"
-                                    key={data.nameDropDown}
-                                    title={<ReactCountryFlag
-                                        countryCode={data.countryCode}
-                                        svg
-                                        style={{
-                                            width: '2em',
-                                            height: '2em',
-                                        }}
-                                        title="US"
-                                    />}
-                                >
-                                    <NavDropdown.Item id="boxSizing"
-                                        // href="#action/3.1"
-                                        onClick={() => this.handleClick('en', 'US')} >
-                                        <ReactCountryFlag countryCode="US" svg /> English(US)
+                                    <NavDropdown className="dropbtn"
+                                        key={data.nameDropDown}
+                                        title={<ReactCountryFlag
+                                            countryCode={data.countryCode}
+                                            svg
+                                            style={{
+                                                width: '2em',
+                                                height: '2em',
+                                            }}
+                                            title="US"
+                                        />}
+                                    >
+                                        <NavDropdown.Item id="boxSizing"
+                                            // href="#action/3.1"
+                                            onClick={() => this.handleClick('en', 'US')} >
+                                            <ReactCountryFlag countryCode="US" svg /> English(US)
                                     </NavDropdown.Item>
-                                    {/* <NavDropdown.Divider /> */}
-                                    <NavDropdown.Item id="boxSizing"
-                                        // href="#action/3.2"
-                                        onClick={() => this.handleClick('jap', 'JP')}>
-                                        <ReactCountryFlag countryCode="JP" svg /> Japanese
+                                        {/* <NavDropdown.Divider /> */}
+                                        <NavDropdown.Item id="boxSizing"
+                                            // href="#action/3.2"
+                                            onClick={() => this.handleClick('jap', 'JP')}>
+                                            <ReactCountryFlag countryCode="JP" svg /> Japanese
                                     </NavDropdown.Item>
-                                    {/* <NavDropdown.Divider /> */}
-                                    <NavDropdown.Item id="boxSizing"
-                                        onClick={() => this.handleClick('vi', 'VN')}>
-                                        <ReactCountryFlag countryCode="VN" svg /> Vietnamese
+                                        {/* <NavDropdown.Divider /> */}
+                                        <NavDropdown.Item id="boxSizing"
+                                            onClick={() => this.handleClick('vi', 'VN')}>
+                                            <ReactCountryFlag countryCode="VN" svg /> Vietnamese
                                     </NavDropdown.Item>
-                                </NavDropdown>
-                            );
-                        })}
-                        {this.showMenus(menus)}
-                        <button id="loginbtn" onClick={this.logOut}>Logout</button>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+                                    </NavDropdown>
+                                );
+                            })}
+                            {this.showMenus(menus)}
+                            <button id="loginbtn" onClick={this.logOut}>Logout</button>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+
+            </div>
         );
     }
 

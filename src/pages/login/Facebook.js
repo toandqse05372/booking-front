@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
 import callApi from "../../utils/apiCaller";
+import './lmao.css';
+import { getUserLogin } from './../../actions/index';
+import { connect } from 'react-redux';
 
-
-export default class Facebook extends Component {
+class Facebook extends Component {
   state = {
     isLoggedIn: false,
     userID: "",
@@ -23,18 +25,26 @@ export default class Facebook extends Component {
       picture: response.picture.data.url,
       token: response.accessToken
     });
-
-    //POST name & password to server
+    console.log(response);
+    console.log(response.user);
+    // var jwtDecode = require('jwt-decode');
+    localStorage.setItem('tokenLogin', JSON.stringify(response.accessToken));
+    // var decoded = jwtDecode(response.accessToken);
+    this.props.fetchUserDetail(response);
+    
+    // POST name & password to server
     callApi('login/fb', 'POST', {
-      name: response.name,
-      email: response.email,
       accessToken: response.accessToken
     }).then(res => {
       console.log(res);
     });
   };
 
-  // componentClicked = () => console.log("clicked");
+  componentClicked = () => {
+    const { token } = this.state;
+    console.log("clicked");
+    console.log(token);
+  }
 
   render() {
     let fbContent;
@@ -69,17 +79,29 @@ export default class Facebook extends Component {
         // </button>
 
         <FacebookLogin
-          appId="2656493264626570"
+          appId="842841396241232"
           autoLoad={false}
           fields="name,email,picture"
-          // onClick={this.componentClicked}
+          onClick={this.componentClicked}
           callback={this.responseFacebook}
-          cssClass="btn btn-primary"
+          cssClass="fbbtn"
+          data-button-type="continue_with"
+          data-use-continue-as="true"
         />
-
       );
     }
 
     return <div>{fbContent}</div>;
   }
+  
 }
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+      fetchUserDetail: (user) => {
+          dispatch(getUserLogin(user))
+      }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Facebook);

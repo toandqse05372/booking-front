@@ -1,0 +1,16 @@
+.fbbtn{
+/* position: absolute; */
+width: 465px;
+height: 55px;
+left: 103px;
+top: 675px;
+border: 1px solid #197ACF;
+box-sizing: border-box;
+border-radius: 10px;
+background-color: white;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 22px;
+color: #197ACF;
+}

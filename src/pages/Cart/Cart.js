@@ -129,14 +129,15 @@ class Cart extends Component {
                                 <StripeCheckout
                                     stripeKey={paymentKey.PUBLISHABLE_KEY}
                                     token={this.handleToken}
+                                    // email="ss@ss.ss"
                                 // amount={ticket.parkPrice * 100}
                                 // name={"Goboki"}
                                 // billingAddress
                                 // shippingAddress
                                 />
-                                <Payment3
+                                {/* <Payment3
                                 totalPayment={this.showTotalAmout()}
-                                />
+                                /> */}
                             </div>
                             <div id="menu1" className="container tab-pane fade"><br></br>
                                 <h3>Căm minh sun</h3>

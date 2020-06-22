@@ -4,12 +4,26 @@ import './another.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actAddToCart } from '../../actions/index';
+import {
+  Accordion, Card,
+  Button,
+} from 'react-bootstrap'
 
 class AnotherOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listResult: [],
+      email: {
+        value: '',
+        isInputValid: false,
+        errorMessage: ''
+    },
+    password: {
+        value: '',
+        isInputValid: false,
+        errorMessage: ''
+    },
     }
   }
 
@@ -43,6 +57,8 @@ class AnotherOne extends Component {
 
   onAddToCartOfProduct = (product) => {
     this.props.onAddToCartOfPC(product);
+    alert('Add to Card succsses');
+
 }
 
   //show Ticket funtion
@@ -56,12 +72,11 @@ class AnotherOne extends Component {
           <div key={index} id="accordion">
             <div className="card">
               <div
-                data-toggle="collapse" data-target={"#" + data.id}
                 className="card-header" id="headingOne">
                 <h5 className="mb-0">
                   <div className="container">
                     <div className="row">
-                      <div className="col-8">
+                      <div data-toggle="collapse" data-target={"#" + data.id} className="col-8">
                         <p style={{ fontFamily: "Arial" }} >
                           Game Name: {data.typeName} --- Id: {data.id}
                         </p>
@@ -173,11 +188,35 @@ class AnotherOne extends Component {
   render() {
     const { listResult } = this.state;
     return (
+      <div>
       <div className="container">
         {/* show ticket list with result get from API */}
         {this.showTicketTypeList(listResult)}
       </div>
-    );
+    <Accordion>
+    <Card>
+      <Card.Header>
+        <Accordion.Toggle style={{color: "red"}} as={Button} variant="link" eventKey="0">
+          Click me!
+        </Accordion.Toggle>
+      </Card.Header>
+      <Accordion.Collapse eventKey="0">
+        <Card.Body>Hello! I'm the body</Card.Body>
+      </Accordion.Collapse>
+    </Card>
+    <Card>
+      <Card.Header>
+        <Accordion.Toggle as={Button} variant="link" eventKey="1">
+          Click me!
+        </Accordion.Toggle>
+      </Card.Header>
+      <Accordion.Collapse eventKey="1">
+        <Card.Body>Hello! I'm another body</Card.Body>
+      </Accordion.Collapse>
+    </Card>
+  </Accordion>
+  </div>
+   );
   }
 }
 

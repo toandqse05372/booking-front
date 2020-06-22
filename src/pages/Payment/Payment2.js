@@ -60,7 +60,6 @@ class CheckoutForm extends React.Component {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: cardElement,
-            txtName: txtName
         });
 
         if (error) {
