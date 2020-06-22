@@ -167,6 +167,7 @@ class LoginPage extends Component {
                 </Form.Row>
                 <Button type="submit">{t('Login.1')}</Button>
             </Form>
+            <Facebook />
             </div>
         );
     }
